@@ -51,6 +51,13 @@ public class Event {
     }
 
     /**
+     * Get year of the Event
+     */
+    public int getYear() {
+        return this.date.getYear();
+    }
+
+    /**
      * Get category of the Event
      */
     public EventCategory getCategory() {

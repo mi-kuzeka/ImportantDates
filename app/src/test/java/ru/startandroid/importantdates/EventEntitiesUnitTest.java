@@ -17,13 +17,25 @@ public class EventEntitiesUnitTest {
     @Test
     public void givenEventDate04281993_whenGetAgeIs29_thenIsTrue() {
         EventDate eventDate = new EventDate(4, 28, 1993);
-        assertEquals(29, eventDate.getAge(2022));
+        EventCategory eventCategory = new EventCategory(1, "Birthday");
+        Event event = new Event(1,"Sam", eventDate, eventCategory, "");
+        assertEquals(47, event.getAge(2040));
     }
 
     @Test
     public void givenEventDate0428_whenGetAgeIs29_thenIsFalse() {
         EventDate eventDate = new EventDate(4, 28);
-        assertNotEquals(29, eventDate.getAge(2022));
+        EventCategory eventCategory = new EventCategory(1, "Birthday");
+        Event event = new Event(1,"Sam", eventDate, eventCategory, "");
+        assertNotEquals(29, event.getAge(2022));
+    }
+
+    @Test
+    public void givenEventDate05171992_whenGetAgeIs30_thenIsTrue() {
+        EventDate eventDate = new EventDate(5, 17, 1992);
+        EventCategory eventCategory = new EventCategory(1, "Birthday");
+        Event event = new Event(1,"Jack", eventDate, eventCategory, "");
+        assertEquals(30, event.getAge(2022));
     }
 
     @Test
@@ -37,13 +49,5 @@ public class EventEntitiesUnitTest {
     public void givenCategoryId1NameBirthday_whenGetIdIs2_thenIsFalse() {
         EventCategory eventCategory = new EventCategory(1, "Birthday");
         assertNotEquals(2, eventCategory.getId());
-    }
-
-    @Test
-    public void givenEventDate05171992_whenGetAgeIs30_thenIsTrue() {
-        EventDate eventDate = new EventDate(5, 17, 1992);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(1,"Jack", eventDate, eventCategory, "");
-        assertEquals(30, event.getAge(2022));
     }
 }

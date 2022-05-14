@@ -37,14 +37,14 @@ public class EventDate {
     /**
      * Get month of the Event
      */
-    public int getMonth() {
+    protected int getMonth() {
         return this.month;
     }
 
     /**
      * Get day of the Event
      */
-    public int getDay() {
+    protected int getDay() {
         return this.day;
     }
 
@@ -52,14 +52,14 @@ public class EventDate {
      * Get year of the event
      * @return -1 if there's no year in the date for this event
      */
-    public int getYear() {
+    protected int getYear() {
         return this.year;
     }
 
     /**
      * Check if event has the year in date
      */
-    public boolean hasYear() {
+    protected boolean hasYear() {
         return this.year != -1;
     }
 
@@ -68,7 +68,7 @@ public class EventDate {
      *
      * @return period between two dates
      */
-    public int getAge() {
+    protected int getAge() {
         int currentYear = getCurrentYear();
         return getAge(currentYear);
     }
@@ -78,7 +78,7 @@ public class EventDate {
      *
      * @return period between two dates
      */
-    public int getAge(int currentYear) {
+    protected int getAge(int currentYear) {
         if (this.canCalculateAge()) {
             if (currentYear == noDataAboutAge) return currentYear;
             return currentYear - this.getYear();
