@@ -18,14 +18,14 @@ public class EventCategory {
     /**
      * Get event category ID
      */
-    protected int getId() {
+    public int getId() {
         return this.id;
     }
 
     /**
      * Get name of the event category
      */
-    protected String getName() {
+    public String getName() {
         return this.name;
     }
 }
