@@ -1,14 +1,10 @@
 package ru.startandroid.importantdates.core.domain;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class EventAge {
-    private static final String logTag = EventAge.class.getSimpleName();
-
+public class EventAgeHelper {
     //If it is impossible to calculate age of the event, set the value -1
     public static final int EMPTY_AGE = -1;
 
@@ -40,8 +36,8 @@ public class EventAge {
      * @return period between two dates
      */
     public static int getAge(int eventYear, int currentYear) {
-        if (eventYear < 0) return EventAge.EMPTY_AGE;
-        if (currentYear == EMPTY_AGE) return EventAge.EMPTY_AGE;
+        if (eventYear < 0) return EventAgeHelper.EMPTY_AGE;
+        if (currentYear == EMPTY_AGE) return EventAgeHelper.EMPTY_AGE;
         return currentYear - eventYear;
     }
 
@@ -57,8 +53,7 @@ public class EventAge {
             String currentYear = yearFormat.format(today);
             return Integer.parseInt(currentYear);
         } catch (Exception exception) {
-            Log.e(logTag, "Error with parsing year of the event.");
+            return EventAgeHelper.EMPTY_AGE;
         }
-        return EventAge.EMPTY_AGE;
     }
 }

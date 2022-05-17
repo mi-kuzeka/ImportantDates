@@ -88,14 +88,14 @@ public class Event {
      * Get age of the Event
      */
     public int getAge() {
-        return EventAge.getAge(date.getYear());
+        return EventAgeHelper.getAge(date.getYear());
     }
 
     /**
      * Get age of the Event with current year value
      */
     public int getAge(int currentYear) {
-        return EventAge.getAge(date.getYear(), currentYear);
+        return EventAgeHelper.getAge(date.getYear(), currentYear);
     }
 
 }
