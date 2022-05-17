@@ -1,4 +1,4 @@
-package ru.startandroid.importantdates.entity;
+package ru.startandroid.importantdates.core.domain;
 
 public class EventCategory {
     private final int id;

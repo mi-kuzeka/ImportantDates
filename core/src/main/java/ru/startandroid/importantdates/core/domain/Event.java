@@ -1,4 +1,6 @@
-package ru.startandroid.importantdates.entity;
+package ru.startandroid.importantdates.core.domain;
+
+import androidx.annotation.NonNull;
 
 public class Event {
     private final long id;
@@ -6,8 +8,19 @@ public class Event {
     private final EventDate date;
     private final EventCategory category;
     private final String notes;
+    private final String emptyNotes = "";
 
-    public Event(long id, String name, EventDate date, EventCategory category, String notes) {
+    public Event(long id, String name, @NonNull EventDate date,
+                 @NonNull EventCategory category) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.category = category;
+        this.notes = this.emptyNotes;
+    }
+
+    public Event(long id, String name, @NonNull EventDate date,
+                 @NonNull EventCategory category, String notes) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -72,16 +85,17 @@ public class Event {
     }
 
     /**
-     * Get age of the Event with current year value
-     */
-    public int getAge(int currentYear) {
-        return date.getAge(currentYear);
-    }
-
-    /**
      * Get age of the Event
      */
     public int getAge() {
-        return date.getAge();
+        return EventAge.getAge(date.getYear());
     }
+
+    /**
+     * Get age of the Event with current year value
+     */
+    public int getAge(int currentYear) {
+        return EventAge.getAge(date.getYear(), currentYear);
+    }
+
 }
