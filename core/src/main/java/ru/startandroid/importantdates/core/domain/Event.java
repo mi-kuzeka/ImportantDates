@@ -92,7 +92,7 @@ public class Event {
     /**
      * Get the {@link Bitmap} data of the event image
      */
-    public Bitmap getImage() {
+    public Bitmap getBitmapImage() {
         return this.image;
     }
 
