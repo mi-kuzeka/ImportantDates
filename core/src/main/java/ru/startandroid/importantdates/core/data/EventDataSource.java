@@ -32,7 +32,7 @@ public interface EventDataSource {
      *
      * @return {@link Event} object
      */
-    public Event readById(long id);
+    public Event readById(int id);
 
     /**
      * Update existing event in the database
@@ -42,9 +42,9 @@ public interface EventDataSource {
     public void update(Event event);
 
     /**
-     * Remove the event by ID
+     * Remove the event
      *
-     * @param id ID of the event
+     * @param event {@link Event} object
      */
-    public void removeById(long id);
+    public void remove(Event event);
 }

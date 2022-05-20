@@ -1,6 +1,6 @@
 package ru.startandroid.importantdates.core.domain;
 
-public class EventCategory {
+public class Category {
     private final int id;
     private final String name;
 
@@ -10,7 +10,7 @@ public class EventCategory {
      * @param id   category ID
      * @param name category name
      */
-    public EventCategory(int id, String name) {
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
     }

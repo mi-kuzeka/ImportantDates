@@ -5,17 +5,17 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
-public class EventCategoryUnitTest {
+public class CategoryUnitTest {
     @Test
     public void givenCategoryId1NameBirthday_whenGetNameIsBirthday_thenIsTrue() {
         String categoryName = "Birthday";
-        EventCategory eventCategory = new EventCategory(1, categoryName);
-        assertEquals(categoryName, eventCategory.getName());
+        Category category = new Category(1, categoryName);
+        assertEquals(categoryName, category.getName());
     }
 
     @Test
     public void givenCategoryId1NameBirthday_whenGetIdIs2_thenIsFalse() {
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        assertNotEquals(2, eventCategory.getId());
+        Category category = new Category(1, "Birthday");
+        assertNotEquals(2, category.getId());
     }
 }

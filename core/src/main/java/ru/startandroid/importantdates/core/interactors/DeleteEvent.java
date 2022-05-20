@@ -3,19 +3,19 @@ package ru.startandroid.importantdates.core.interactors;
 import ru.startandroid.importantdates.core.data.EventRepository;
 import ru.startandroid.importantdates.core.domain.Event;
 
-public class GetEventById {
+public class DeleteEvent {
     private final EventRepository eventRepository;
 
-    public GetEventById(EventRepository repository) {
+    public DeleteEvent(EventRepository repository) {
         this.eventRepository = repository;
     }
 
     /**
-     * Get the event by ID
+     * Remove the event
      *
-     * @return {@link Event} object
+     * @param event {@link Event} object
      */
-    public Event invoke(int id) {
-        return eventRepository.getEventById(id);
+    public void invoke(Event event) {
+        eventRepository.deleteEvent(event);
     }
 }

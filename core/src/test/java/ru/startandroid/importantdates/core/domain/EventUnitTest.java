@@ -9,72 +9,72 @@ public class EventUnitTest {
     @Test
     public void givenEventDate04281993_whenGetAgeIs29_thenIsTrue() {
         EventDate eventDate = new EventDate(4, 28, 1993);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(1, "Sawyer", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(1, "Sawyer", eventDate, category, "");
         assertEquals(47, event.getAge(2040));
     }
 
     @Test
     public void givenEventDate04281993_whenGetDayIs28_thenIsTrue() {
         EventDate eventDate = new EventDate(4, 28, 1993);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(2, "Henry", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(2, "Henry", eventDate, category, "");
         assertEquals(28, event.getDay());
     }
 
     @Test
     public void givenEventDate04281993_whenGetDayIs4_thenIsFalse() {
         EventDate eventDate = new EventDate(4, 28, 1993);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(3, "Frodo", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(3, "Frodo", eventDate, category, "");
         assertNotEquals(4, event.getDay());
     }
 
     @Test
     public void givenEventNameSam_whenGetNameIsSam_thenIsTrue() {
         EventDate eventDate = new EventDate(4, 28);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(4, "Sam", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(4, "Sam", eventDate, category, "");
         assertEquals("Sam", event.getName());
     }
 
     @Test
     public void givenEventNameJane_whenGetNameIsEmpty_thenIsFalse() {
         EventDate eventDate = new EventDate(4, 28);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(5, "Jane", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(5, "Jane", eventDate, category, "");
         assertNotEquals("", event.getName());
     }
 
     @Test
     public void givenEventNotesMyHusband_whenGetNotesIsMyHusband_thenIsTrue() {
         EventDate eventDate = new EventDate(1, 1);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(6, "Kate", eventDate, eventCategory, "My husband");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(6, "Kate", eventDate, category, "My husband");
         assertEquals("My husband", event.getNotes());
     }
 
     @Test
     public void givenEventNotesMyWife_whenGetNotesIsEmpty_thenIsFalse() {
         EventDate eventDate = new EventDate(1, 1);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(7, "Jack", eventDate, eventCategory, "My wife");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(7, "Jack", eventDate, category, "My wife");
         assertNotEquals("", event.getNotes());
     }
 
     @Test
     public void givenEventId8_whenGetIdIs8_thenIsTrue() {
         EventDate eventDate = new EventDate(1, 1);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(8, "Leo", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(8, "Leo", eventDate, category, "");
         assertEquals(8, event.getId());
     }
 
     @Test
     public void givenEventId9_whenGetIdIs8_thenIsFalse() {
         EventDate eventDate = new EventDate(1, 1);
-        EventCategory eventCategory = new EventCategory(1, "Birthday");
-        Event event = new Event(9, "Nancy", eventDate, eventCategory, "");
+        Category category = new Category(1, "Birthday");
+        Event event = new Event(9, "Nancy", eventDate, category, "");
         assertNotEquals(8, event.getId());
     }
 }

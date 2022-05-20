@@ -44,7 +44,7 @@ public class EventRepository {
      *
      * @return {@link Event} object
      */
-    public Event getEventById(long id) {
+    public Event getEventById(int id) {
         return eventDataSource.readById(id);
     }
 
@@ -58,11 +58,11 @@ public class EventRepository {
     }
 
     /**
-     * Remove the event by ID
+     * Remove the event
      *
-     * @param id ID of the event
+     * @param event {@link Event} object
      */
-    public void deleteEventById(long id) {
-        eventDataSource.removeById(id);
+    public void deleteEvent(Event event) {
+        eventDataSource.remove(event);
     }
 }

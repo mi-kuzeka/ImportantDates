@@ -1,37 +1,42 @@
 package ru.startandroid.importantdates.core.domain;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 
 public class Event {
-    private final long id;
+    private final int id;
     private final String name;
     private final EventDate date;
-    private final EventCategory category;
+    private final Category category;
     private final String notes;
-    private final String emptyNotes = "";
+    private final Bitmap image;
 
-    public Event(long id, String name, @NonNull EventDate date,
-                 @NonNull EventCategory category) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
-        this.category = category;
-        this.notes = this.emptyNotes;
-    }
-
-    public Event(long id, String name, @NonNull EventDate date,
-                 @NonNull EventCategory category, String notes) {
+    public Event(int id, String name, @NonNull EventDate date,
+                 @NonNull Category category, String notes,
+                 Bitmap image) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.category = category;
         this.notes = notes;
+        this.image = image;
+    }
+
+    public Event(int id, String name, @NonNull EventDate date,
+                 @NonNull Category category, String notes) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.category = category;
+        this.notes = notes;
+        this.image = null;
     }
 
     /**
      * Get event ID
      */
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
@@ -73,7 +78,7 @@ public class Event {
     /**
      * Get category of the Event
      */
-    public EventCategory getCategory() {
+    public Category getCategory() {
         return this.category;
     }
 
@@ -82,6 +87,13 @@ public class Event {
      */
     public String getNotes() {
         return this.notes;
+    }
+
+    /**
+     * Get the {@link Bitmap} data of the event image
+     */
+    public Bitmap getImage() {
+        return this.image;
     }
 
     /**
