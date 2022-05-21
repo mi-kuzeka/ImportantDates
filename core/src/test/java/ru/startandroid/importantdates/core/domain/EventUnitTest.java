@@ -7,14 +7,6 @@ import org.junit.Test;
 
 public class EventUnitTest {
     @Test
-    public void givenEventDate04281993_whenGetAgeIs29_thenIsTrue() {
-        EventDate eventDate = new EventDate(4, 28, 1993);
-        Category category = new Category(1, "Birthday");
-        Event event = new Event(1, "Sawyer", eventDate, category, "");
-        assertEquals(47, event.getAge(2040));
-    }
-
-    @Test
     public void givenEventDate04281993_whenGetDayIs28_thenIsTrue() {
         EventDate eventDate = new EventDate(4, 28, 1993);
         Category category = new Category(1, "Birthday");

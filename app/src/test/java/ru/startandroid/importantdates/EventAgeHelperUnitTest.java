@@ -1,14 +1,17 @@
-package ru.startandroid.importantdates.core.domain;
+package ru.startandroid.importantdates;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import ru.startandroid.importantdates.presentation.EventAgeHelper;
 
 public class EventAgeHelperUnitTest {
     @Test
     public void givenEventYearMinus1AndCurrentYear2022_whenGetAgeIs29_thenIsFalse() {
-        assertNotEquals(29, EventAgeHelper.getAge(-1, 2022));
+        Assert.assertNotEquals(29, EventAgeHelper.getAge(-1, 2022));
     }
 
     @Test

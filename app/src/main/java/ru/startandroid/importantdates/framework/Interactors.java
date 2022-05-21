@@ -1,4 +1,7 @@
 package ru.startandroid.importantdates.framework;
 
-public class Interactors {
+import ru.startandroid.importantdates.core.interactors.*;
+
+public final class Interactors {
+
 }

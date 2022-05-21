@@ -1,4 +1,4 @@
-package ru.startandroid.importantdates.core.domain;
+package ru.startandroid.importantdates.presentation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

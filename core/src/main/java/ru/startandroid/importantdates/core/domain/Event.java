@@ -12,8 +12,21 @@ public class Event {
     private final String notes;
     private final Bitmap image;
 
-    public Event(int id, String name, @NonNull EventDate date,
-                 @NonNull Category category, String notes,
+    /**
+     * Create new {@link Event} object
+     *
+     * @param id       event ID
+     * @param name     event name
+     * @param date     date of event occurrence
+     * @param category type of the event
+     * @param notes    custom notes about event
+     * @param image    event image
+     */
+    public Event(int id,
+                 String name,
+                 @NonNull EventDate date,
+                 @NonNull Category category,
+                 String notes,
                  Bitmap image) {
         this.id = id;
         this.name = name;
@@ -23,8 +36,21 @@ public class Event {
         this.image = image;
     }
 
-    public Event(int id, String name, @NonNull EventDate date,
-                 @NonNull Category category, String notes) {
+
+    /**
+     * Create new {@link Event} object
+     *
+     * @param id       event ID
+     * @param name     event name
+     * @param date     date of event occurrence
+     * @param category type of the event
+     * @param notes    custom notes about event
+     */
+    public Event(int id,
+                 String name,
+                 @NonNull EventDate date,
+                 @NonNull Category category,
+                 String notes) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -94,20 +120,6 @@ public class Event {
      */
     public Bitmap getBitmapImage() {
         return this.image;
-    }
-
-    /**
-     * Get age of the Event
-     */
-    public int getAge() {
-        return EventAgeHelper.getAge(date.getYear());
-    }
-
-    /**
-     * Get age of the Event with current year value
-     */
-    public int getAge(int currentYear) {
-        return EventAgeHelper.getAge(date.getYear(), currentYear);
     }
 
 }
