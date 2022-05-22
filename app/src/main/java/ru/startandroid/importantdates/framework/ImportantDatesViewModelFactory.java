@@ -12,6 +12,12 @@ public class ImportantDatesViewModelFactory implements ViewModelProvider.Factory
     private Application application;
     private Interactors dependencies;
 
+    public static final ImportantDatesViewModelFactory INSTANCE;
+
+    static {
+        INSTANCE = new ImportantDatesViewModelFactory();
+    }
+
     public final void inject(Application application, Interactors dependencies) {
         this.application = application;
         this.dependencies = dependencies;
