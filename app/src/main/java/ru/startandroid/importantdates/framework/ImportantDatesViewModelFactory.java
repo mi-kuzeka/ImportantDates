@@ -9,13 +9,20 @@ import androidx.lifecycle.ViewModelProvider;
 import java.lang.reflect.InvocationTargetException;
 
 public class ImportantDatesViewModelFactory implements ViewModelProvider.Factory {
+    private static ImportantDatesViewModelFactory instance;
+
     private Application application;
     private Interactors dependencies;
 
-    public static final ImportantDatesViewModelFactory INSTANCE;
+    private ImportantDatesViewModelFactory() {
+    }
 
-    static {
-        INSTANCE = new ImportantDatesViewModelFactory();
+    public static ImportantDatesViewModelFactory getInstance() {
+        if (instance == null) {
+            instance = new ImportantDatesViewModelFactory();
+        }
+
+        return instance;
     }
 
     public final void inject(Application application, Interactors dependencies) {

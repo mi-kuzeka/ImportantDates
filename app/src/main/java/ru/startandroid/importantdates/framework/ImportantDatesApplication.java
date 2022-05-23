@@ -17,7 +17,7 @@ public class ImportantDatesApplication extends Application {
         CategoryRepository categoryRepository =
                 new CategoryRepository(new RoomCategoryDataSource(this));
 
-        ImportantDatesViewModelFactory.INSTANCE.inject(
+        ImportantDatesViewModelFactory.getInstance().inject(
                 this,
                 new Interactors(
                         new AddCategory(categoryRepository),

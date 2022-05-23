@@ -42,51 +42,51 @@ public final class Interactors {
         this.updateEvent = updateEvent;
     }
 
-    public AddCategory getAddCategory() {
+    public AddCategory addCategory() {
         return addCategory;
     }
 
-    public AddEvent getAddEvent() {
+    public AddEvent addEvent() {
         return addEvent;
     }
 
-    public DeleteCategory getDeleteCategory() {
+    public DeleteCategory deleteCategory() {
         return deleteCategory;
     }
 
-    public DeleteEvent getDeleteEvent() {
+    public DeleteEvent deleteEvent() {
         return deleteEvent;
     }
 
-    public GetCategories getGetCategories() {
+    public GetCategories getCategories() {
         return getCategories;
     }
 
-    public GetCategoryById getGetCategoryById() {
+    public GetCategoryById getCategoryById() {
         return getCategoryById;
     }
 
-    public GetCategoryByName getGetCategoryByName() {
+    public GetCategoryByName getCategoryByName() {
         return getCategoryByName;
     }
 
-    public GetEventById getGetEventById() {
+    public GetEventById getEventById() {
         return getEventById;
     }
 
-    public GetEvents getGetEvents() {
+    public GetEvents getEvents() {
         return getEvents;
     }
 
-    public GetEventsByMonth getGetEventsByMonth() {
+    public GetEventsByMonth getEventsByMonth() {
         return getEventsByMonth;
     }
 
-    public UpdateCategory getUpdateCategory() {
+    public UpdateCategory gupdateCategory() {
         return updateCategory;
     }
 
-    public UpdateEvent getUpdateEvent() {
+    public UpdateEvent updateEvent() {
         return updateEvent;
     }
 }

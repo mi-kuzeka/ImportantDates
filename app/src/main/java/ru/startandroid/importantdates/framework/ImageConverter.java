@@ -7,6 +7,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 public class ImageConverter {
+    private ImageConverter() {
+    }
+
     public static Bitmap getBitmap(byte[] data) {
         try {
             ByteArrayInputStream imageStream = new ByteArrayInputStream(data);
