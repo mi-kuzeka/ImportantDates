@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Important Dates</string>
+
+    <!-- Hint for expanded menu button [CHAR_LIMIT=20] -->
+    <string name="menu_button_hint">Show menu</string>
+    <!-- Hint for search button [CHAR_LIMIT=20] -->
+    <string name="search_button_hint">Search event</string>
 </resources>
