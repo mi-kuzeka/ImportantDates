@@ -59,9 +59,8 @@
         app:tabMaxWidth="0dp"
         app:tabMode="scrollable" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager"
-        style="@style/ViewPagerStyle"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/event_list_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

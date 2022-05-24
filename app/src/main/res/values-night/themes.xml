@@ -49,7 +49,7 @@
         <item name="tabTextColor">@color/md_theme_dark_secondary</item>
     </style>
 
-    <style name="ViewPagerStyle">
+    <style name="EventListStyle">
         <item name="android:background">@color/md_theme_dark_background</item>
     </style>
 </resources>
