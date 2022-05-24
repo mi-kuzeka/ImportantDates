@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppBarStyle">
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textSize">22sp</item>
+        <item name="background">@color/md_theme_dark_surface</item>
+    </style>
+
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@color/md_theme_dark_onPrimary</item>
+        <item name="tabIndicatorColor">@color/md_theme_dark_primary</item>
+        <item name="tabSelectedTextColor">@color/md_theme_dark_primary</item>
+        <item name="tabTextColor">@color/md_theme_dark_secondary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="EventListStyle">
+        <item name="android:background">@color/md_theme_dark_background</item>
+    </style>
+
+    <style name="EmptyListTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="EmptyListSubtitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+</resources>

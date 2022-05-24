@@ -5,4 +5,9 @@
     <string name="menu_button_hint">Show menu</string>
     <!-- Hint for search button [CHAR_LIMIT=20] -->
     <string name="search_button_hint">Search event</string>
+
+    <!-- Title of empty list about no events in the list -->
+    <string name="no_events_title">No events here yet</string>
+    <!-- Subtitle of empty list -->
+    <string name="no_events_subtitle">Add an event for this month\n and it will show up here.</string>
 </resources>
