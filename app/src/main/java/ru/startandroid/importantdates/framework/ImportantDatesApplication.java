@@ -5,6 +5,8 @@ import android.app.Application;
 import ru.startandroid.importantdates.core.data.CategoryRepository;
 import ru.startandroid.importantdates.core.data.EventRepository;
 import ru.startandroid.importantdates.core.interactors.*;
+import ru.startandroid.importantdates.framework.datasource.RoomCategoryDataSource;
+import ru.startandroid.importantdates.framework.datasource.RoomEventDataSource;
 
 public class ImportantDatesApplication extends Application {
 

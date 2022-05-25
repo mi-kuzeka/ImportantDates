@@ -33,4 +33,14 @@
         <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
         <item name="fontFamily">sans-serif</item>
     </style>
+
+    <style name="EventCardViewStyle" parent="Widget.Material3.CardView.Outlined">
+        <item name="strokeColor">@color/md_theme_light_outline</item>
+        <item name="strokeWidth">@dimen/event_item_stroke</item>
+        <item name="backgroundColor">@color/md_theme_light_surface</item>
+    </style>
+
+    <style name="EventImageViewStyle">
+        <item name="android:background">@drawable/image_box_day</item>
+    </style>
 </resources>

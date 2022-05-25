@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Assert;
 import org.junit.Test;
 
-import ru.startandroid.importantdates.presentation.EventAgeHelper;
+import ru.startandroid.importantdates.presentation.helpers.EventAgeHelper;
 
 public class EventAgeHelperUnitTest {
     @Test

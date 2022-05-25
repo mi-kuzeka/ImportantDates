@@ -1,4 +1,4 @@
-package ru.startandroid.importantdates.framework;
+package ru.startandroid.importantdates.framework.datasource;
 
 import android.content.Context;
 

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/EventCardViewStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/event_item_margin"
+    android:layout_marginEnd="@dimen/event_item_margin"
+    android:layout_marginBottom="@dimen/event_items_spacing"
+    app:cardCornerRadius="@dimen/event_item_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/event_item_padding">
+
+            <TextView
+                android:id="@+id/day_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/day_circle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/event_item_padding"
+                android:layout_marginEnd="@dimen/event_item_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/event_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    />
+
+                <TextView
+                    android:id="@+id/event_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/event_image_view"
+            android:layout_width="@dimen/image_box_size"
+            android:layout_height="@dimen/image_box_size"
+            android:contentDescription="@string/image_box_description"
+            android:scaleType="centerCrop"
+            style="@style/EventImageViewStyle"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
