@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/EventCardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,49 +16,61 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/event_item_padding">
+            android:layout_margin="@dimen/event_item_padding"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/day_text_view"
+                style="@style/EventDayStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/day_circle" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/day_circle_margin"
+                android:layout_marginBottom="@dimen/day_circle_margin"
+                android:background="@drawable/day_circle"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                tools:text="@string/temp_event_day" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/event_item_padding"
-                android:layout_marginEnd="@dimen/event_item_padding"
-                android:orientation="vertical">
+                android:layout_marginStart="@dimen/event_name_margin"
+                android:layout_marginEnd="@dimen/event_name_margin">
 
                 <TextView
                     android:id="@+id/event_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    />
+                    android:layout_height="@dimen/event_name_height"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/temp_event_name" />
 
                 <TextView
                     android:id="@+id/event_category"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-            </LinearLayout>
+                    android:layout_height="@dimen/event_category_height"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:text="@string/temp_event_category" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/event_image_view"
+            style="@style/EventImageViewStyle"
             android:layout_width="@dimen/image_box_size"
             android:layout_height="@dimen/image_box_size"
+            android:layout_gravity="center_vertical"
             android:contentDescription="@string/image_box_description"
-            android:scaleType="centerCrop"
-            style="@style/EventImageViewStyle"
-            android:layout_gravity="center_vertical"/>
+            android:scaleType="centerCrop" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

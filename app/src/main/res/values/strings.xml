@@ -13,6 +13,10 @@
 
     <string name="image_box_description">Event image</string>
 
+    <string name="temp_event_day">23</string>
+    <string name="temp_event_name">Jack</string>
+    <string name="temp_event_category">Birthday</string>
+
     <!-- Month names - titles for tabs -->
     <string name="january_month">January</string>
     <string name="february_month">February</string>

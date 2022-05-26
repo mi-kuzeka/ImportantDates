@@ -43,4 +43,8 @@
     <style name="EventImageViewStyle">
         <item name="android:background">@drawable/image_box_night</item>
     </style>
+
+    <style name="EventDayStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_dark_surface</item>
+    </style>
 </resources>
