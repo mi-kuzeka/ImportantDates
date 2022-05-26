@@ -43,7 +43,7 @@
                 android:layout_marginEnd="@dimen/event_name_margin">
 
                 <TextView
-                    android:id="@+id/event_name"
+                    android:id="@+id/name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/event_name_height"
                     android:gravity="center_vertical"
@@ -53,7 +53,7 @@
                     tools:text="@string/temp_event_name" />
 
                 <TextView
-                    android:id="@+id/event_category"
+                    android:id="@+id/category_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/event_category_height"
                     android:gravity="center_vertical"
