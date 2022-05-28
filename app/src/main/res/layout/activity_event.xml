@@ -6,4 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".presentation.event.EventActivity">
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/event_toolbar"
+        style="@style/AppBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/back_to_event_list"
+                android:layout_width="@dimen/appbar_icon_size"
+                android:layout_height="@dimen/appbar_icon_size"
+                android:contentDescription="@string/back_button_hint"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/event_editor_title"
+                style="@style/EventEditorTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/event_fragment_title_new_event"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/back_to_event_list"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/delete_event"
+                android:layout_width="@dimen/appbar_icon_size"
+                android:layout_height="@dimen/appbar_icon_size"
+                android:layout_marginEnd="@dimen/appbar_margin"
+                android:contentDescription="@string/delete_button_hint"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/save_event"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/save_event"
+                android:layout_width="@dimen/appbar_icon_size"
+                android:layout_height="@dimen/appbar_icon_size"
+                android:layout_marginEnd="@dimen/appbar_margin"
+                android:contentDescription="@string/save_button_hint"
+                android:src="@drawable/ic_done"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/choose_image"
+        style="@style/ChooseImageStyle"
+        android:layout_width="@dimen/event_editor_image_size"
+        android:layout_height="@dimen/event_editor_image_size"
+        android:layout_marginTop="@dimen/event_editor_items_spacing"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

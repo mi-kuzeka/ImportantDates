@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EventEditorTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_marginStart">@dimen/event_title_margin</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+</resources>

@@ -32,5 +32,11 @@
     <string name="december_month">December</string>
 
     <!-- Title for the fragment to add a new event [CHAR LIMIT=20] -->
-    <string name="event_fragment_title_new_event">Add an event</string>
+    <string name="event_fragment_title_new_event">Add new event</string>
+    <!-- Hint for save button [CHAR_LIMIT=20] -->
+    <string name="save_button_hint">Save event</string>
+    <!-- Hint for delete button [CHAR_LIMIT=20] -->
+    <string name="delete_button_hint">Delete event</string>
+    <!-- Hint for back button [CHAR_LIMIT=20] -->
+    <string name="back_button_hint">Back to event list</string>
 </resources>

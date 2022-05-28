@@ -15,6 +15,9 @@
     <dimen name="event_name_margin">16dp</dimen>
     <dimen name="event_list_padding">1dp</dimen>
     <dimen name="empty_list_padding">200dp</dimen>
+    <dimen name="event_title_margin">20dp</dimen>
+    <dimen name="event_editor_image_size">150dp</dimen>
+    <dimen name="event_editor_items_spacing">20dp</dimen>
     <!-- Margin around the floating action button in MainActivity -->
     <dimen name="fab_margin">16dp</dimen>
 </resources>

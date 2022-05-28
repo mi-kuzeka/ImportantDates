@@ -25,7 +25,7 @@
                 android:id="@+id/expanded_menu"
                 android:layout_width="@dimen/appbar_icon_size"
                 android:layout_height="@dimen/appbar_icon_size"
-                android:contentDescription="@string/search_button_hint"
+                android:contentDescription="@string/menu_button_hint"
                 android:src="@drawable/ic_menu"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
