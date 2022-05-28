@@ -13,4 +13,5 @@
     <dimen name="event_name_height">24dp</dimen>
     <dimen name="event_category_height">20dp</dimen>
     <dimen name="event_name_margin">16dp</dimen>
+    <dimen name="empty_list_padding">200dp</dimen>
 </resources>

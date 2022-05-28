@@ -12,6 +12,7 @@ import java.util.List;
 
 import ru.startandroid.importantdates.R;
 import ru.startandroid.importantdates.presentation.helpers.MonthsHelper;
+import ru.startandroid.importantdates.presentation.months.MonthsFragmentStateAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager = findViewById(R.id.event_list_container);
 
         // Create an adapter that knows which fragment should be shown on each page.
-//        viewPager.setAdapter(new MonthsFragmentStateAdapter(getSupportFragmentManager(),
-//                getLifecycle(), this));
+        viewPager.setAdapter(new MonthsFragmentStateAdapter(getSupportFragmentManager(),
+                getLifecycle()));
 
         List<String> tabTitles = MonthsHelper.getMonthNames(this);
 
@@ -39,5 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Select tab with current month
         tabLayout.getTabAt(MonthsHelper.getCurrentMonth()).select();
+
     }
 }

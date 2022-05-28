@@ -120,8 +120,9 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     /**
      * Create new views (invoked by the layout manager)
      */
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             // Create a new view, which defines the UI of the list item
             View view = LayoutInflater.from(activity)
@@ -139,7 +140,7 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
      * Replace the contents of a view (invoked by the layout manager)
      */
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof EventViewHolder) {
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
@@ -152,7 +153,7 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 //Intent intent = new Intent(mainActivity, )
             });
 
-            eventViewHolder.getDayTextView().setText(eventItem.getDay());
+            eventViewHolder.getDayTextView().setText(String.valueOf(eventItem.getDay()));
             eventViewHolder.getNameTextView().setText(eventItem.getName());
             eventViewHolder.getCategoryTextView().setText(eventItem.getCategory().getName());
             eventViewHolder.getEventImageView().setImageBitmap(eventItem.getBitmapImage());
@@ -183,5 +184,11 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         int size = this.eventList.size();
         this.eventList.clear();
         notifyItemRangeRemoved(0, size);
+    }
+
+    public void update(List<Event> newEvents) {
+        clear();
+        this.eventList.addAll(newEvents);
+        notifyItemRangeInserted(0, newEvents.size());
     }
 }

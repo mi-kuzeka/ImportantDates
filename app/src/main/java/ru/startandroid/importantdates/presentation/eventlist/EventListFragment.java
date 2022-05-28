@@ -1,28 +1,40 @@
 package ru.startandroid.importantdates.presentation.eventlist;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import ru.startandroid.importantdates.R;
+import ru.startandroid.importantdates.core.domain.Event;
+import ru.startandroid.importantdates.framework.ImportantDatesViewModelFactory;
 
 /**
  * A fragment representing a list of Items.
  */
 public class EventListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final String LOG_TAG = EventListFragment.class.getSimpleName();
+    private static final String MONTH_NUMBER = "monthNumber";
+
+    private int mMonthNumber;
+
+    private EventsRecyclerViewAdapter recyclerViewAdapter;
+    private EventListViewModel viewModel;
+
+    List<Event> events;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -31,12 +43,17 @@ public class EventListFragment extends Fragment {
     public EventListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static EventListFragment newInstance(int columnCount) {
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param monthNumber Number of current month.
+     * @return A new instance of fragment {@link EventListFragment}.
+     */
+    public static EventListFragment newInstance(int monthNumber) {
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putInt(MONTH_NUMBER, monthNumber);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,26 +63,72 @@ public class EventListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            mMonthNumber = getArguments().getInt(MONTH_NUMBER);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.event_list, container, false);
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+    }
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            //recyclerView.setAdapter(new EventsRecyclerViewAdapter(PlaceholderContent.ITEMS));
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        try {
+            ImportantDatesViewModelFactory viewModelFactory =
+                    ImportantDatesViewModelFactory.getInstance();
+            viewModelFactory.create(EventListViewModel.class);
+            viewModel = new ViewModelProvider(this,
+                    (ViewModelProvider.Factory) viewModelFactory)
+                    .get(EventListViewModel.class);
+
+            viewModel.events.observe(getViewLifecycleOwner(),
+                    this::setEvents);
+
+            viewModel.loadEvents(mMonthNumber);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error with loading events");
         }
-        return view;
+
+        View rootView;
+
+        // Set layout with list of events.
+        rootView = inflater.inflate(R.layout.event_list, container, false);
+
+        if (events == null || events.isEmpty()) {
+            events = new ArrayList<>();
+        } else {
+            events.sort(Comparator.comparingInt(Event::getDay));
+        }
+
+        EmptyRecyclerView recyclerView = rootView.findViewById(R.id.event_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
+
+        // Set content for each event item.
+        recyclerViewAdapter =
+                new EventsRecyclerViewAdapter(recyclerView, events, getActivity());
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setEmptyView(rootView.findViewById(R.id.empty_view));
+
+        return rootView;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+        if (recyclerViewAdapter != null) {
+            recyclerViewAdapter.update(this.events);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 }

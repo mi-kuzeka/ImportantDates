@@ -1,7 +1,6 @@
 package ru.startandroid.importantdates.framework.db;
 
 import android.content.Context;
-import android.os.Parcelable;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -18,14 +17,18 @@ public abstract class ImportantDatesDatabase extends RoomDatabase {
     private static final Object LOCK = new Object();
     private static ImportantDatesDatabase instance;
 
+    public static void create(Context context) {
+        synchronized (LOCK) {
+            instance = Room.databaseBuilder(context,
+                    ImportantDatesDatabase.class, DATABASE_NAME)
+                    .fallbackToDestructiveMigration()
+                    .build();
+        }
+    }
+
     public static ImportantDatesDatabase getInstance(Context context) {
         if (instance == null) {
-            synchronized (LOCK) {
-                instance = Room.databaseBuilder(context.getApplicationContext(),
-                        ImportantDatesDatabase.class, DATABASE_NAME)
-                        .fallbackToDestructiveMigration()
-                        .build();
-            }
+            create(context);
         }
         return instance;
     }
