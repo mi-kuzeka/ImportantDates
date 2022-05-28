@@ -9,9 +9,12 @@
     <dimen name="event_item_radius">12dp</dimen>
     <dimen name="image_box_size">80dp</dimen>
     <dimen name="day_circle_margin">4dp</dimen>
-    <dimen name="event_item_stroke">2dp</dimen>
+    <dimen name="event_item_stroke">1dp</dimen>
     <dimen name="event_name_height">24dp</dimen>
     <dimen name="event_category_height">20dp</dimen>
     <dimen name="event_name_margin">16dp</dimen>
+    <dimen name="event_list_padding">1dp</dimen>
     <dimen name="empty_list_padding">200dp</dimen>
+    <!-- Margin around the floating action button in MainActivity -->
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

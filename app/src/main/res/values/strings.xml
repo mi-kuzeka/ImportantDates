@@ -30,4 +30,7 @@
     <string name="october_month">October</string>
     <string name="november_month">November</string>
     <string name="december_month">December</string>
+
+    <!-- Title for the fragment to add a new event [CHAR LIMIT=20] -->
+    <string name="event_fragment_title_new_event">Add an event</string>
 </resources>

@@ -3,14 +3,17 @@ package ru.startandroid.importantdates.presentation;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
 
 import ru.startandroid.importantdates.R;
+import ru.startandroid.importantdates.presentation.event.EventActivity;
 import ru.startandroid.importantdates.presentation.helpers.MonthsHelper;
 import ru.startandroid.importantdates.presentation.months.MonthsFragmentStateAdapter;
 
@@ -41,5 +44,11 @@ public class MainActivity extends AppCompatActivity {
         // Select tab with current month
         tabLayout.getTabAt(MonthsHelper.getCurrentMonth()).select();
 
+        // Setup FAB to open EditorActivity
+        FloatingActionButton fab = findViewById(R.id.fab_add_event);
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, EventActivity.class);
+            startActivity(intent);
+        });
     }
 }

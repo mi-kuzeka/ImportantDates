@@ -28,16 +28,4 @@ public class EventListViewModel extends ImportantDatesViewModel {
         AppExecutors.getInstance().getDiskIO().execute(() ->
                 events.postValue(interactors.getEventsByMonth().invoke(month)));
     }
-
-    public void addEvent(Event event) {
-        AppExecutors.getInstance().getDiskIO().execute(() -> {
-            interactors.addEvent().invoke(event);
-            loadEvents(event.getMonth());
-        });
-    }
-
-    public void addCategory(Category category) {
-        AppExecutors.getInstance().getDiskIO().execute(() ->
-                interactors.addCategory().invoke(category));
-    }
 }

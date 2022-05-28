@@ -146,10 +146,10 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             // contents of the view with that element
             Event eventItem = this.eventList.get(position);
             EventViewHolder eventViewHolder = (EventViewHolder) holder;
-            Activity mainActivity = this.activity;
+            Activity activity = this.activity;
 
             eventViewHolder.itemView.setOnClickListener(view -> {
-                //TODO: open event editor/creator
+                //TODO: open event editor
                 //Intent intent = new Intent(mainActivity, )
             });
 
