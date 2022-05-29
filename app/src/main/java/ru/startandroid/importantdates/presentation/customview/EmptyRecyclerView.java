@@ -1,4 +1,4 @@
-package ru.startandroid.importantdates.presentation.eventlist;
+package ru.startandroid.importantdates.presentation.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;

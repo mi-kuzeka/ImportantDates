@@ -20,6 +20,7 @@ import java.util.List;
 import ru.startandroid.importantdates.R;
 import ru.startandroid.importantdates.core.domain.Event;
 import ru.startandroid.importantdates.framework.ImportantDatesViewModelFactory;
+import ru.startandroid.importantdates.presentation.customview.EmptyRecyclerView;
 
 /**
  * A fragment representing a list of Items.

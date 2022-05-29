@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ru.startandroid.importantdates.presentation.eventlist.EmptyRecyclerView
+    <ru.startandroid.importantdates.presentation.customview.EmptyRecyclerView
         android:id="@+id/event_list"
         android:name="ru.startandroid.importantdates.presentation.eventlist.EventListFragment"
         android:layout_width="match_parent"

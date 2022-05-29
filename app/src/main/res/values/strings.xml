@@ -10,7 +10,7 @@
     <string name="no_events_title">No events here yet</string>
     <!-- Subtitle of empty list -->
     <string name="no_events_subtitle">Add an event for this month\n and it will show up here.</string>
-
+    <!-- Image box description for event item in list -->
     <string name="image_box_description">Event image</string>
 
     <string name="temp_event_day">23</string>
@@ -39,4 +39,10 @@
     <string name="delete_button_hint">Delete event</string>
     <!-- Hint for back button [CHAR_LIMIT=20] -->
     <string name="back_button_hint">Back to event list</string>
+    <!-- Image box description for event editor -->
+    <string name="choose_image_description">Choose image</string>
+    <string name="name_edit_hint">Name</string>
+    <string name="date_edit_hint">Date</string>
+    <string name="full_date_mask">mmddyyyy</string>
+    <string name="short_date_mask">mmdd</string>
 </resources>
