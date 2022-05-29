@@ -41,6 +41,8 @@
     <string name="back_button_hint">Back to event list</string>
     <!-- Image box description for event editor -->
     <string name="choose_image_description">Choose image</string>
+
+
     <string name="name_edit_title">Name</string>
     <string name="date_edit_title">Date</string>
     <string name="full_date_mask">mmddyyyy</string>

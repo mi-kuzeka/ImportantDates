@@ -3,8 +3,7 @@
 
     <style name="AppBarStyle">
         <item name="android:textColor">@color/md_theme_light_onSurface</item>
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.TitleLarge</item>
         <item name="background">@color/md_theme_light_onPrimary</item>
     </style>
 
@@ -13,25 +12,14 @@
         <item name="tabIndicatorColor">@color/md_theme_light_primary</item>
         <item name="tabSelectedTextColor">@color/md_theme_light_primary</item>
         <item name="tabTextColor">@color/md_theme_light_secondary</item>
-        <item name="fontFamily">sans-serif</item>
     </style>
 
     <style name="EventListStyle">
         <item name="android:background">@color/md_theme_light_background</item>
     </style>
 
-    <style name="EmptyListTitleStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textAlignment">center</item>
+    <style name="EmptyListTextStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
-        <item name="fontFamily">sans-serif</item>
-    </style>
-
-    <style name="EmptyListSubtitleStyle" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
-        <item name="fontFamily">sans-serif</item>
     </style>
 
     <style name="EventCardViewStyle" parent="Widget.Material3.CardView.Outlined">
@@ -50,5 +38,9 @@
 
     <style name="ChooseImageStyle">
         <item name="android:src">@drawable/ic_choose_image_light</item>
+    </style>
+
+    <style name="ChooseImageTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_theme_light_primary</item>
     </style>
 </resources>

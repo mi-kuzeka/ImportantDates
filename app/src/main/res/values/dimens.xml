@@ -22,4 +22,5 @@
     <!-- Margin around the floating action button in MainActivity -->
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="notes_height">150dp</dimen>
+    <dimen name="choose_image_text_margin">20dp</dimen>
 </resources>

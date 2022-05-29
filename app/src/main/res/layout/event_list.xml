@@ -34,21 +34,24 @@
 
         <TextView
             android:id="@+id/empty_list_title"
-            style="@style/EmptyListTitleStyle"
+            style="@style/EmptyListTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_events_title"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/empty_list_image_view" />
 
         <TextView
             android:id="@+id/empty_list_subtitle"
-            style="@style/EmptyListSubtitleStyle"
+            style="@style/EmptyListTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_events_subtitle"
             android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/empty_list_title" />
