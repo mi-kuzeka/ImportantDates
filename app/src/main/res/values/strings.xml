@@ -41,8 +41,11 @@
     <string name="back_button_hint">Back to event list</string>
     <!-- Image box description for event editor -->
     <string name="choose_image_description">Choose image</string>
-    <string name="name_edit_hint">Name</string>
-    <string name="date_edit_hint">Date</string>
+    <string name="name_edit_title">Name</string>
+    <string name="date_edit_title">Date</string>
     <string name="full_date_mask">mmddyyyy</string>
     <string name="short_date_mask">mmdd</string>
+    <string name="category_spinner_hint">Category</string>
+    <string name="notes_edit_title">Notes</string>
+    <string name="notes_edit_hint">Type some information about event if you want to…</string>
 </resources>
