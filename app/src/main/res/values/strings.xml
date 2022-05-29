@@ -9,7 +9,8 @@
     <!-- Title of empty list about no events in the list -->
     <string name="no_events_title">No events here yet</string>
     <!-- Subtitle of empty list -->
-    <string name="no_events_subtitle">Add an event for this month\n and it will show up here.</string>
+    <string name="no_events_subtitle">Add an event for this month\n
+        and it will show up here.</string>
     <!-- Image box description for event item in list -->
     <string name="image_box_description">Event image</string>
 
@@ -33,21 +34,36 @@
 
     <!-- Title for the fragment to add a new event [CHAR LIMIT=20] -->
     <string name="event_fragment_title_new_event">Add new event</string>
-    <!-- Hint for save button [CHAR_LIMIT=20] -->
+    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
     <string name="save_button_hint">Save event</string>
     <!-- Hint for delete button [CHAR_LIMIT=20] -->
     <string name="delete_button_hint">Delete event</string>
-    <!-- Hint for back button [CHAR_LIMIT=20] -->
+    <!-- Hint for back button in event creator/editor [CHAR_LIMIT=20] -->
     <string name="back_button_hint">Back to event list</string>
-    <!-- Image box description for event editor -->
+    <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image_description">Choose image</string>
-
-
+    <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
     <string name="name_edit_title">Name</string>
+    <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
     <string name="date_edit_title">Date</string>
+    <!-- Mask for date, example date: 04.29.1990 -->
     <string name="full_date_mask">mmddyyyy</string>
+    <!-- Mask for date without year, example date: 04.29 -->
     <string name="short_date_mask">mmdd</string>
+    <!-- Title for field Category in event creator/editor [CHAR_LIMIT=20] -->
     <string name="category_spinner_hint">Category</string>
+    <!-- Title for field Notes in event creator/editor [CHAR_LIMIT=20] -->
     <string name="notes_edit_title">Notes</string>
+    <!-- Hint for field Notes in event creator/editor -->
     <string name="notes_edit_hint">Type some information about event if you want to…</string>
+
+    <!-- Date format, example date: 04.29.1990 -->
+    <string name="full_date_format">MMddyyyy</string>
+    <!-- Date format without year, example date: 04.29 -->
+    <string name="short_date_format">MMdd</string>
+
+    <!-- Error message for required fields -->
+    <string name="error_field_is_required">This field is required</string>
+    <!-- Error message for date: incorrect format -->
+    <string name="error_date_incorrect_format">Incorrect format</string>
 </resources>
