@@ -120,7 +120,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="@integer/name_max_length" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -165,7 +166,8 @@
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/category_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="@integer/category_max_length" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -189,7 +191,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/notes_height"
                     android:gravity="top"
-                    android:hint="@string/notes_edit_hint" />
+                    android:hint="@string/notes_edit_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLength="@integer/notes_max_length" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
