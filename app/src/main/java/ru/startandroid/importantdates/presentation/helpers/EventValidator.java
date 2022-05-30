@@ -18,7 +18,7 @@ public class EventValidator {
     /**
      * Check if input string is not empty and set error if string is empty
      */
-    public static void validateRequired(Context context,
+    public static boolean validateRequired(Context context,
                                         Editable inputText,
                                         TextInputLayout textInputLayout) {
         boolean isValid =
@@ -28,19 +28,20 @@ public class EventValidator {
         } else {
             EventValidator.setErrorFieldIsRequired(context, textInputLayout);
         }
+        return isValid;
     }
 
     /**
      * Check if input date is valid and set error if date is invalid
      */
-    public static void validateDate(Context context,
+    public static boolean validateDate(Context context,
                                     String inputText,
                                     TextInputLayout textInputLayout) {
         boolean isEmpty =
                 EventValidator.requiredFieldIsEmpty(inputText);
         if (isEmpty) {
             EventValidator.setErrorFieldIsRequired(context, textInputLayout);
-            return;
+            return false;
         }
 
         boolean isValid =
@@ -50,6 +51,7 @@ public class EventValidator {
         } else {
             EventValidator.setErrorInvalidDate(context, textInputLayout);
         }
+        return isValid;
     }
 
     /**
@@ -102,7 +104,7 @@ public class EventValidator {
      * Check if input string is empty
      */
     public static boolean requiredFieldIsEmpty(String inputText) {
-        return TextUtils.isEmpty(inputText);
+        return TextUtils.isEmpty(inputText.trim());
     }
 
     /**
@@ -110,7 +112,7 @@ public class EventValidator {
      */
     public static boolean requiredFieldIsValid(Editable inputText) {
         if (inputText == null) return false;
-        return !TextUtils.isEmpty(inputText.toString());
+        return !TextUtils.isEmpty(inputText.toString().trim());
     }
 
     /**

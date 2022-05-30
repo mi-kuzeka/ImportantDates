@@ -34,6 +34,8 @@
 
     <!-- Title for the fragment to add a new event [CHAR LIMIT=20] -->
     <string name="event_fragment_title_new_event">Add new event</string>
+    <!-- Title for the fragment to edit an existing event [CHAR LIMIT=20] -->
+    <string name="event_fragment_title_edit_event">Edit event</string>
     <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
     <string name="save_button_hint">Save event</string>
     <!-- Hint for delete button [CHAR_LIMIT=20] -->
