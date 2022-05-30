@@ -62,6 +62,9 @@ public class EventValidator {
         SimpleDateFormat fullDateFormat = new SimpleDateFormat(
                 fullDateFormatPattern,
                 Locale.getDefault());
+        // Don't try to parse non-existent date,like 20.45.2000
+        fullDateFormat.setLenient(false);
+
         try {
             fullDateFormat.parse(dateText);
             // If date is successfully parsed
@@ -74,11 +77,14 @@ public class EventValidator {
         }
 
         String shortDateFormatPattern =
-                context.getResources().getString(R.string.short_date_format);
-        // DateFormat for short date
+                context.getResources().getString(R.string.date_format_without_year);
+        // DateFormat for date without year
         SimpleDateFormat shortDateFormat = new SimpleDateFormat(
                 shortDateFormatPattern,
                 Locale.getDefault());
+        // Don't try to parse non-existent date,like 20.45
+        shortDateFormat.setLenient(false);
+
         try {
             shortDateFormat.parse(dateText);
             // If date is successfully parsed
