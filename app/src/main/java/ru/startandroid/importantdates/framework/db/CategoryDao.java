@@ -20,7 +20,7 @@ public interface CategoryDao {
     @Query("SELECT * FROM categories WHERE id = :id")
     public CategoryEntity getCategoryById(int id);
 
-    @Query("SELECT * FROM categories WHERE name = :name")
+    @Query("SELECT DISTINCT id, name FROM categories WHERE name = :name COLLATE NOCASE")
     public CategoryEntity getCategoryByName(String name);
 
     @Update

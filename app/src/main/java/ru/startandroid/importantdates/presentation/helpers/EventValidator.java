@@ -75,7 +75,7 @@ public class EventValidator {
             if (dateText.length() == fullDateFormatPattern.length())
                 return true;
         } catch (Exception e) {
-            Log.v(LOG_TAG, "Invalid date");
+            Log.v(LOG_TAG, "Can't parse full date");
         }
 
         String shortDateFormatPattern =

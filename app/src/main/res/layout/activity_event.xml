@@ -48,6 +48,7 @@
                 android:layout_height="@dimen/appbar_icon_size"
                 android:layout_marginEnd="@dimen/appbar_margin"
                 android:contentDescription="@string/delete_button_hint"
+                android:visibility="gone"
                 android:src="@drawable/ic_delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/save_event"
@@ -121,6 +122,7 @@
                     android:id="@+id/name_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
                     android:maxLength="@integer/name_max_length" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,6 +145,8 @@
                     android:id="@+id/date_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:nextFocusDown="@id/category_edit_text"
                     app:keep_hint="true"
                     mask:allowed_chars="1234567890"
                     mask:hint="@string/full_date_mask"
@@ -167,7 +171,9 @@
                     android:id="@+id/category_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="@integer/category_max_length" />
+                    android:inputType="text"
+                    android:maxLength="@integer/category_max_length"
+                    android:nextFocusDown="@id/notes_edit_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -192,7 +198,7 @@
                     android:layout_height="@dimen/notes_height"
                     android:gravity="top"
                     android:hint="@string/notes_edit_hint"
-                    android:inputType="textMultiLine"
+                    android:inputType="text"
                     android:maxLength="@integer/notes_max_length" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,6 +63,7 @@ public class RoomCategoryDataSource implements CategoryDataSource {
      * @return {@link Category} object
      */
     private Category getCategory(CategoryEntity categoryEntity) {
+        if (categoryEntity == null) return null;
         return new Category(categoryEntity.id, categoryEntity.name);
     }
 
