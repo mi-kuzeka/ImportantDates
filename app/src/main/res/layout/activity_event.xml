@@ -198,7 +198,7 @@
                     android:layout_height="@dimen/notes_height"
                     android:gravity="top"
                     android:hint="@string/notes_edit_hint"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:maxLength="@integer/notes_max_length" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

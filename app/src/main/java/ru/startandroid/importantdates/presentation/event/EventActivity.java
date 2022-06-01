@@ -194,8 +194,8 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (userInputIsValid(context))
-                    categoryName  = categoryTextView.getText().toString().trim();
-                    eventViewModel.getCategoryByName(categoryName);
+                    categoryName = categoryTextView.getText().toString().trim();
+                eventViewModel.getCategoryByName(categoryName);
             }
         });
     }
@@ -208,14 +208,28 @@ public class EventActivity extends AppCompatActivity {
     }
 
     private void saveEvent() {
+        if (category == null) {
+            eventViewModel.addNewCategory(categoryName);
+            eventViewModel.getCategoryByName(categoryName);
+            return;
+        }
+
         String eventName = nameEditText.getText().toString().trim();
         EventDate eventDate = EventDateHelper.getEventDateObject(this,
                 dateEditText.getRawText());
-        if (category == null) {
-            eventViewModel.addNewCategory(categoryName);
-        }
-        if (isNewEvent) {
+        // TODO: show alert
+        if (eventDate == null) return;
+        TextInputEditText notesEditText = findViewById(R.id.notes_edit_text);
 
+        String notes = "";
+        if (notesEditText.getText() != null) notes = notesEditText.getText().toString().trim();
+
+        //TODO: get image
+
+        if (isNewEvent) {
+            currentEvent = new Event(0, eventName, eventDate, category, notes);
+            eventViewModel.addEvent(currentEvent);
+            finish();
         }
     }
 }
