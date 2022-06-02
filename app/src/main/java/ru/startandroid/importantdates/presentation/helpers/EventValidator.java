@@ -1,7 +1,6 @@
 package ru.startandroid.importantdates.presentation.helpers;
 
 import android.content.Context;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -19,14 +18,13 @@ public class EventValidator {
      * Check if input string is not empty and set error if string is empty
      */
     public static boolean validateRequired(Context context,
-                                        Editable inputText,
-                                        TextInputLayout textInputLayout) {
-        boolean isValid =
-                EventValidator.requiredFieldIsValid(inputText);
+                                           String inputText,
+                                           TextInputLayout textInputLayout) {
+        boolean isValid = requiredFieldIsValid(inputText);
         if (isValid) {
-            EventValidator.clearError(context, textInputLayout);
+            clearError(textInputLayout);
         } else {
-            EventValidator.setErrorFieldIsRequired(context, textInputLayout);
+            setErrorFieldIsRequired(context, textInputLayout);
         }
         return isValid;
     }
@@ -35,21 +33,19 @@ public class EventValidator {
      * Check if input date is valid and set error if date is invalid
      */
     public static boolean validateDate(Context context,
-                                    String inputText,
-                                    TextInputLayout textInputLayout) {
-        boolean isEmpty =
-                EventValidator.requiredFieldIsEmpty(inputText);
+                                       String inputText,
+                                       TextInputLayout textInputLayout) {
+        boolean isEmpty = requiredFieldIsEmpty(inputText);
         if (isEmpty) {
-            EventValidator.setErrorFieldIsRequired(context, textInputLayout);
+            setErrorFieldIsRequired(context, textInputLayout);
             return false;
         }
 
-        boolean isValid =
-                EventValidator.dateFieldIsValid(context, inputText);
+        boolean isValid = dateFieldIsValid(context, inputText);
         if (isValid) {
-            EventValidator.clearError(context, textInputLayout);
+            clearError(textInputLayout);
         } else {
-            EventValidator.setErrorInvalidDate(context, textInputLayout);
+            setErrorInvalidDate(context, textInputLayout);
         }
         return isValid;
     }
@@ -110,9 +106,8 @@ public class EventValidator {
     /**
      * Check if input string is not empty
      */
-    public static boolean requiredFieldIsValid(Editable inputText) {
-        if (inputText == null) return false;
-        return !TextUtils.isEmpty(inputText.toString().trim());
+    public static boolean requiredFieldIsValid(String inputText) {
+        return !requiredFieldIsEmpty(inputText);
     }
 
     /**
@@ -136,8 +131,7 @@ public class EventValidator {
     /**
      * Clear error message in TextInputLayout
      */
-    public static void clearError(Context context,
-                                  TextInputLayout textInputLayout) {
+    public static void clearError(TextInputLayout textInputLayout) {
         textInputLayout.setError(null);
     }
 }

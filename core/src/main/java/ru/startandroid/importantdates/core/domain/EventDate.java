@@ -1,11 +1,14 @@
 package ru.startandroid.importantdates.core.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class EventDate {
+public class EventDate implements Parcelable {
     private final int emptyYear = -1;
 
     private final int month;
@@ -28,6 +31,12 @@ public class EventDate {
         this.month = month;
         this.day = day;
         this.year = year;
+    }
+
+    public EventDate(Parcel source) {
+        month = source.readInt();
+        day = source.readInt();
+        year = source.readInt();
     }
 
     /**
@@ -86,4 +95,28 @@ public class EventDate {
         cal.set(Calendar.MILLISECOND, emptyValue);
         return cal.getTime();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(month);
+        parcel.writeInt(day);
+        parcel.writeInt(year);
+    }
+
+    public static final Creator<EventDate> CREATOR = new Creator<EventDate>() {
+        @Override
+        public EventDate[] newArray(int size) {
+            return new EventDate[size];
+        }
+
+        @Override
+        public EventDate createFromParcel(Parcel source) {
+            return new EventDate(source);
+        }
+    };
 }

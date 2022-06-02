@@ -32,6 +32,7 @@ public class EventListFragment extends Fragment {
 
     private int mMonthNumber;
 
+    EventListViewModel viewModel;
     private EventsRecyclerViewAdapter recyclerViewAdapter;
 
     List<Event> events;
@@ -80,7 +81,7 @@ public class EventListFragment extends Fragment {
                     ImportantDatesViewModelFactory.getInstance();
             viewModelFactory.create(EventListViewModel.class);
 
-            EventListViewModel viewModel = new ViewModelProvider(this, viewModelFactory)
+            viewModel = new ViewModelProvider(this, viewModelFactory)
                     .get(EventListViewModel.class);
 
             viewModel.events.observe(getViewLifecycleOwner(),
@@ -97,7 +98,7 @@ public class EventListFragment extends Fragment {
         rootView = inflater.inflate(R.layout.event_list, container, false);
 
         if (events == null) events = new ArrayList<>();
-        
+
         if (!events.isEmpty()) {
             events.sort(Comparator.comparingInt(Event::getDay));
         }
@@ -124,6 +125,10 @@ public class EventListFragment extends Fragment {
         if (recyclerViewAdapter != null) {
             recyclerViewAdapter.update(this.events);
         }
+    }
+
+    public void refreshEvents() {
+        viewModel.loadEvents(mMonthNumber);
     }
 
     @Override

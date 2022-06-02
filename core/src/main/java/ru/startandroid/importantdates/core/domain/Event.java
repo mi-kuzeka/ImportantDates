@@ -1,10 +1,14 @@
 package ru.startandroid.importantdates.core.domain;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class Event {
+import ru.startandroid.importantdates.core.helpers.ImageConverter;
+
+public class Event implements Parcelable {
     private final int id;
     private final String name;
     private final EventDate date;
@@ -57,6 +61,21 @@ public class Event {
         this.category = category;
         this.notes = notes;
         this.image = null;
+    }
+
+    public Event(Parcel source) {
+        id = source.readInt();
+        name = source.readString();
+        date = source.readParcelable(EventDate.class.getClassLoader());
+        category = source.readParcelable(Category.class.getClassLoader());
+        notes = source.readString();
+        if (source.readByte() == 0) {
+            image = null;
+        } else {
+            byte[] imageBytes = new byte[source.readInt()];
+            source.readByteArray(imageBytes);
+            image = ImageConverter.getBitmap(imageBytes);
+        }
     }
 
     /**
@@ -122,4 +141,30 @@ public class Event {
         return this.image;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeParcelable(date, 0);
+        parcel.writeParcelable(category, 0);
+        parcel.writeString(notes);
+        if (image != null) parcel.writeByteArray(ImageConverter.getByteArray(image));
+    }
+
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+
+        @Override
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+    };
 }

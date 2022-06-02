@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import ru.startandroid.importantdates.core.domain.Category;
+import ru.startandroid.importantdates.core.domain.Event;
 import ru.startandroid.importantdates.framework.ImportantDatesViewModel;
 import ru.startandroid.importantdates.framework.Interactors;
 import ru.startandroid.importantdates.framework.db.AppExecutors;
@@ -38,7 +39,13 @@ public class EventViewModel extends ImportantDatesViewModel {
 
     public void addNewCategory(String categoryName) {
         AppExecutors.getInstance().getDiskIO().execute(() -> {
-            interactors.addCategory().invoke(new Category(0, categoryName ));
+            interactors.addCategory().invoke(new Category(0, categoryName));
+        });
+    }
+
+    public void updateEvent(Event event) {
+        AppExecutors.getInstance().getDiskIO().execute(() -> {
+            interactors.updateEvent().invoke(event);
         });
     }
 }

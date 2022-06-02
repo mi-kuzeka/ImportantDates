@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 
 import ru.startandroid.importantdates.R;
 import ru.startandroid.importantdates.core.domain.Event;
+import ru.startandroid.importantdates.presentation.MainActivity;
+import ru.startandroid.importantdates.presentation.event.EventActivity;
 
 import java.util.List;
 
@@ -146,11 +150,15 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             // contents of the view with that element
             Event eventItem = this.eventList.get(position);
             EventViewHolder eventViewHolder = (EventViewHolder) holder;
-            Activity activity = this.activity;
+            Activity mainActivity = this.activity;
 
             eventViewHolder.itemView.setOnClickListener(view -> {
-                //TODO: open event editor
-                //Intent intent = new Intent(mainActivity, )
+                Intent intent = new Intent(mainActivity, EventActivity.class);
+                Bundle b = new Bundle();
+                b.putParcelable(MainActivity.EVENT_KEY, eventItem);
+                intent.putExtras(b);
+                mainActivity.startActivity(intent);
+                //TODO update list after editing
             });
 
             eventViewHolder.getDayTextView().setText(String.valueOf(eventItem.getDay()));

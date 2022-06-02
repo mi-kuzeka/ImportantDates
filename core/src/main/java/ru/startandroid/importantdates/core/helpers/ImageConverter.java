@@ -1,4 +1,4 @@
-package ru.startandroid.importantdates.framework;
+package ru.startandroid.importantdates.core.helpers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +11,7 @@ public class ImageConverter {
     }
 
     public static Bitmap getBitmap(byte[] data) {
+        if (data == null) return null;
         try {
             ByteArrayInputStream imageStream = new ByteArrayInputStream(data);
             return BitmapFactory.decodeStream(imageStream);
@@ -24,6 +25,7 @@ public class ImageConverter {
     }
 
     public static byte[] getByteArray(Bitmap bitmap, int quality) {
+        if (bitmap == null) return null;
         try {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, quality, stream);

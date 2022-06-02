@@ -9,7 +9,7 @@ import ru.startandroid.importantdates.core.data.EventDataSource;
 import ru.startandroid.importantdates.core.domain.Category;
 import ru.startandroid.importantdates.core.domain.Event;
 import ru.startandroid.importantdates.core.domain.EventDate;
-import ru.startandroid.importantdates.framework.ImageConverter;
+import ru.startandroid.importantdates.core.helpers.ImageConverter;
 import ru.startandroid.importantdates.framework.db.EventDao;
 import ru.startandroid.importantdates.framework.db.EventEntity;
 import ru.startandroid.importantdates.framework.db.ImportantDatesDatabase;

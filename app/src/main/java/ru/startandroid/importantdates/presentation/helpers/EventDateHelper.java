@@ -58,4 +58,26 @@ public class EventDateHelper {
         }
         return null;
     }
+
+    public static String getEventDateText(Context context, EventDate eventDate) {
+        DateTime date;
+        String dateFormatPattern;
+        if (eventDate.hasYear()) {
+            date = new DateTime(eventDate.getYear(), eventDate.getMonth(), eventDate.getDay(),
+                    0, 0, 0);
+
+            // DateFormat for full date
+            dateFormatPattern = context.getResources().getString(R.string.full_date_format);
+        } else {
+            date = new DateTime(0, eventDate.getMonth(), eventDate.getDay(),
+                    0, 0, 0);
+
+            // DateFormat for date without year
+            dateFormatPattern = context.getResources().getString(R.string.date_format_without_year);
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                dateFormatPattern,
+                Locale.getDefault());
+        return dateFormat.format(date.toDate());
+    }
 }

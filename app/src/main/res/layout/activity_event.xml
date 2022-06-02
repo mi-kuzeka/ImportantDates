@@ -37,7 +37,6 @@
                 style="@style/EventEditorTitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/event_fragment_title_new_event"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/back_to_event_list"
                 app:layout_constraintTop_toTopOf="parent" />

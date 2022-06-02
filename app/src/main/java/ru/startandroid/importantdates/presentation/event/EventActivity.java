@@ -3,13 +3,14 @@ package ru.startandroid.importantdates.presentation.event;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,6 +24,7 @@ import ru.startandroid.importantdates.core.domain.Category;
 import ru.startandroid.importantdates.core.domain.Event;
 import ru.startandroid.importantdates.core.domain.EventDate;
 import ru.startandroid.importantdates.framework.ImportantDatesViewModelFactory;
+import ru.startandroid.importantdates.presentation.MainActivity;
 import ru.startandroid.importantdates.presentation.customview.MaskedEditText;
 import ru.startandroid.importantdates.presentation.helpers.EventDateHelper;
 import ru.startandroid.importantdates.presentation.helpers.EventValidator;
@@ -33,10 +35,8 @@ public class EventActivity extends AppCompatActivity {
     private EventViewModel eventViewModel;
 
     private boolean isNewEvent;
-    private Uri currentEventUri;
     private Event currentEvent;
     private Category category;
-    private boolean categoryIsReceived;
     private String categoryName;
 
     private TextInputEditText nameEditText;
@@ -45,8 +45,10 @@ public class EventActivity extends AppCompatActivity {
     private MaskedEditText dateEditText;
     private TextInputLayout dateInputLayout;
 
-    private MaterialAutoCompleteTextView categoryTextView;
+    private MaterialAutoCompleteTextView categoryEditText;
     private TextInputLayout categoryInputLayout;
+
+    private TextInputEditText notesEditText;
 
     private ImageView backImageView;
     private ImageView deleteEventImageView;
@@ -57,13 +59,16 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        currentEventUri = getIntent().getData();
-        isNewEvent = (currentEventUri == null);
+        Bundle b = getIntent().getExtras();
+        if (b != null)
+            currentEvent = b.getParcelable(MainActivity.EVENT_KEY);
+        isNewEvent = (currentEvent == null);
 
+        TextView eventEditorTitle = findViewById(R.id.event_editor_title);
         if (isNewEvent) {
-            this.setTitle(R.string.event_fragment_title_new_event);
+            eventEditorTitle.setText(R.string.event_fragment_title_new_event);
         } else {
-            this.setTitle(R.string.event_fragment_title_edit_event);
+            eventEditorTitle.setText(R.string.event_fragment_title_edit_event);
         }
 
         findViewsById();
@@ -75,6 +80,7 @@ public class EventActivity extends AppCompatActivity {
         if (isNewEvent) {
             nameEditText.requestFocus();
         } else {
+            fillViews(this);
             initDeleteOnClickListener();
         }
     }
@@ -86,12 +92,23 @@ public class EventActivity extends AppCompatActivity {
         dateEditText = findViewById(R.id.date_edit_text);
         dateInputLayout = findViewById(R.id.date_text_input);
 
-        categoryTextView = findViewById(R.id.category_edit_text);
+        categoryEditText = findViewById(R.id.category_edit_text);
         categoryInputLayout = findViewById(R.id.category_text_input);
+
+        notesEditText = findViewById(R.id.notes_edit_text);
 
         backImageView = findViewById(R.id.back_to_event_list);
         deleteEventImageView = findViewById(R.id.delete_event);
         saveEventImageView = findViewById(R.id.save_event);
+    }
+
+    private void fillViews(Context context) {
+        nameEditText.setText(currentEvent.getName());
+        dateEditText.setText(EventDateHelper
+                .getEventDateText(context, currentEvent.getDate()));
+        categoryEditText.setText(currentEvent.getCategory().getName());
+        notesEditText.setText(currentEvent.getNotes());
+        //TODO set image
     }
 
     private void initViewModel() {
@@ -105,7 +122,6 @@ public class EventActivity extends AppCompatActivity {
 
             eventViewModel.categories.observe(this, this::fillCategories);
 
-            categoryIsReceived = false;
             eventViewModel.category.observe(this, this::setCategoryAndSaveEvent);
 
             eventViewModel.loadCategories();
@@ -126,28 +142,29 @@ public class EventActivity extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 R.layout.dropdown_list_item, categoryNames);
-        categoryTextView.setAdapter(adapter);
+        categoryEditText.setAdapter(adapter);
 
-        if (isNewEvent) categoryTextView.setText(defaultCategory);
+        if (isNewEvent) categoryEditText.setText(defaultCategory);
     }
 
     private void initValidation(Context context) {
         nameEditText.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
-                EventValidator.validateRequired(context, nameEditText.getText(), nameInputLayout);
+                EventValidator.validateRequired(context, getEventName(), nameInputLayout);
             }
         });
         dateEditText.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
-                EventValidator.validateDate(context, dateEditText.getRawText(), dateInputLayout);
+                EventValidator.validateDate(context, getEventDateText(), dateInputLayout);
             }
         });
-        categoryTextView.setOnFocusChangeListener((view, hasFocus) -> {
+        categoryEditText.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
-                EventValidator.validateRequired(context, categoryTextView.getText(),
+                EventValidator.validateRequired(context, getCategoryName(),
                         categoryInputLayout);
             }
         });
+        //TODO validate with timer
 //        nameEditText.addTextChangedListener(new TextValidator(nameEditText) {
 //            @Override
 //            public void validate(TextView textView, String text) {
@@ -175,9 +192,9 @@ public class EventActivity extends AppCompatActivity {
      * Check if all fields is valid
      */
     private boolean userInputIsValid(Context context) {
-        return EventValidator.validateRequired(context, nameEditText.getText(), nameInputLayout) &&
-                EventValidator.validateDate(context, dateEditText.getRawText(), dateInputLayout) &&
-                EventValidator.validateRequired(context, categoryTextView.getText(), categoryInputLayout);
+        return EventValidator.validateRequired(context, getEventName(), nameInputLayout) &&
+                EventValidator.validateDate(context, getEventDateText(), dateInputLayout) &&
+                EventValidator.validateRequired(context, getCategoryName(), categoryInputLayout);
     }
 
     private void initBackOnClickListener() {
@@ -194,14 +211,13 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (userInputIsValid(context))
-                    categoryName = categoryTextView.getText().toString().trim();
+                    categoryName = getCategoryName();
                 eventViewModel.getCategoryByName(categoryName);
             }
         });
     }
 
     private void setCategoryAndSaveEvent(Category c) {
-        categoryIsReceived = true;
         category = c;
 
         saveEvent();
@@ -214,22 +230,65 @@ public class EventActivity extends AppCompatActivity {
             return;
         }
 
-        String eventName = nameEditText.getText().toString().trim();
-        EventDate eventDate = EventDateHelper.getEventDateObject(this,
-                dateEditText.getRawText());
+        EventDate eventDate = getEventDate();
         // TODO: show alert
         if (eventDate == null) return;
-        TextInputEditText notesEditText = findViewById(R.id.notes_edit_text);
-
-        String notes = "";
-        if (notesEditText.getText() != null) notes = notesEditText.getText().toString().trim();
 
         //TODO: get image
 
         if (isNewEvent) {
-            currentEvent = new Event(0, eventName, eventDate, category, notes);
-            eventViewModel.addEvent(currentEvent);
+            Event newEvent = new Event(0, getEventName(), eventDate, category, getNotes());
+            eventViewModel.addEvent(newEvent);
+            setResult(Activity.RESULT_OK);
+            finish();
+        } else {
+            Event updatedEvent = getUpdatedEvent();
+            if (updatedEvent != null) {
+                eventViewModel.updateEvent(updatedEvent);
+                setResult(Activity.RESULT_OK);
+            }
             finish();
         }
+    }
+
+    private Event getUpdatedEvent() {
+        Event newEvent = new Event(currentEvent.getId(),
+                getEventName(),
+                getEventDate(),
+                category,
+                getNotes(),
+                //TODO set image
+                null);
+        if (newEvent.getName().equals(currentEvent.getName())
+                && newEvent.getDate().equals(currentEvent.getDate())
+                && newEvent.getCategory().equals(currentEvent.getCategory())
+                && newEvent.getNotes().equals(currentEvent.getNotes())
+                && newEvent.getBitmapImage().equals(currentEvent.getBitmapImage()))
+            return null;
+
+        return newEvent;
+    }
+
+    private String getEventName() {
+        if (nameEditText.getText() == null) return "";
+        return nameEditText.getText().toString().trim();
+    }
+
+    private String getEventDateText() {
+        return dateEditText.getRawText();
+    }
+
+    private EventDate getEventDate() {
+        return EventDateHelper.getEventDateObject(this, getEventDateText());
+    }
+
+    private String getCategoryName() {
+        if (categoryEditText.getText() == null) return "";
+        return categoryEditText.getText().toString().trim();
+    }
+
+    private String getNotes() {
+        if (notesEditText.getText() == null) return "";
+        return notesEditText.getText().toString().trim();
     }
 }
