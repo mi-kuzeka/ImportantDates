@@ -1,5 +1,7 @@
 package ru.startandroid.importantdates.presentation.eventlist;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +28,8 @@ import java.util.List;
  */
 public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Event> eventList;
-    private final Activity activity;
+    private final EventListFragment fragment;
+    ActivityResultLauncher<Intent> mStartForResult;
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
@@ -44,9 +47,17 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
      */
     public EventsRecyclerViewAdapter(RecyclerView recyclerView,
                                      List<Event> eventList,
-                                     Activity activity) {
+                                     EventListFragment fragment) {
         this.eventList = eventList;
-        this.activity = activity;
+        this.fragment = fragment;
+
+        mStartForResult = fragment.registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        fragment.refreshEvents();
+                    }
+                });
 
         final LinearLayoutManager linearLayoutManager =
                 (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -129,11 +140,11 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             // Create a new view, which defines the UI of the list item
-            View view = LayoutInflater.from(activity)
+            View view = LayoutInflater.from(fragment.getContext())
                     .inflate(R.layout.event_item, parent, false);
             return new EventViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
-            View view = LayoutInflater.from(activity)
+            View view = LayoutInflater.from(fragment.getContext())
                     .inflate(R.layout.item_loading, parent, false);
             return new LoadingViewHolder(view);
         }
@@ -150,15 +161,14 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             // contents of the view with that element
             Event eventItem = this.eventList.get(position);
             EventViewHolder eventViewHolder = (EventViewHolder) holder;
-            Activity mainActivity = this.activity;
+            Activity mainActivity = fragment.getActivity();
 
             eventViewHolder.itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(mainActivity, EventActivity.class);
                 Bundle b = new Bundle();
                 b.putParcelable(MainActivity.EVENT_KEY, eventItem);
                 intent.putExtras(b);
-                mainActivity.startActivity(intent);
-                //TODO update list after editing
+                mStartForResult.launch(intent);
             });
 
             eventViewHolder.getDayTextView().setText(String.valueOf(eventItem.getDay()));

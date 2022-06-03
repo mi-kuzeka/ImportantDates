@@ -109,7 +109,7 @@ public class EventListFragment extends Fragment {
 
         // Set content for each event item.
         recyclerViewAdapter =
-                new EventsRecyclerViewAdapter(recyclerView, events, getActivity());
+                new EventsRecyclerViewAdapter(recyclerView, events, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setEmptyView(rootView.findViewById(R.id.empty_view));
 

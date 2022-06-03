@@ -1,10 +1,12 @@
 package ru.startandroid.importantdates.presentation.event;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +38,6 @@ public class EventActivity extends AppCompatActivity {
 
     private boolean isNewEvent;
     private Event currentEvent;
-    private Category category;
     private String categoryName;
 
     private TextInputEditText nameEditText;
@@ -122,7 +123,7 @@ public class EventActivity extends AppCompatActivity {
 
             eventViewModel.categories.observe(this, this::fillCategories);
 
-            eventViewModel.category.observe(this, this::setCategoryAndSaveEvent);
+            eventViewModel.category.observe(this, this::saveEvent);
 
             eventViewModel.loadCategories();
         } catch (Exception e) {
@@ -197,8 +198,26 @@ public class EventActivity extends AppCompatActivity {
                 EventValidator.validateRequired(context, getCategoryName(), categoryInputLayout);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!isNewEvent && !eventWasChanged()) {
+            super.onBackPressed();
+            return;
+        }
+
+        DialogInterface.OnClickListener discardButtonClickListener =
+                (dialogInterface, i) -> {
+                    // User clicked "Discard" button, close the current activity.
+                    finish();
+                };
+
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
     private void initBackOnClickListener() {
-        backImageView.setOnClickListener(view -> finish());
+        backImageView.setOnClickListener(view -> {
+            onBackPressed();
+        });
     }
 
     private void initDeleteOnClickListener() {
@@ -217,13 +236,7 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
-    private void setCategoryAndSaveEvent(Category c) {
-        category = c;
-
-        saveEvent();
-    }
-
-    private void saveEvent() {
+    private void saveEvent(Category category) {
         if (category == null) {
             eventViewModel.addNewCategory(categoryName);
             eventViewModel.getCategoryByName(categoryName);
@@ -242,8 +255,8 @@ public class EventActivity extends AppCompatActivity {
             setResult(Activity.RESULT_OK);
             finish();
         } else {
-            Event updatedEvent = getUpdatedEvent();
-            if (updatedEvent != null) {
+            if (eventWasChanged()) {
+                Event updatedEvent = getUpdatedEvent(category);
                 eventViewModel.updateEvent(updatedEvent);
                 setResult(Activity.RESULT_OK);
             }
@@ -251,22 +264,24 @@ public class EventActivity extends AppCompatActivity {
         }
     }
 
-    private Event getUpdatedEvent() {
-        Event newEvent = new Event(currentEvent.getId(),
+    private Event getUpdatedEvent(Category category) {
+        return new Event(currentEvent.getId(),
                 getEventName(),
                 getEventDate(),
                 category,
                 getNotes(),
-                //TODO set image
+                //TODO get image
                 null);
-        if (newEvent.getName().equals(currentEvent.getName())
-                && newEvent.getDate().equals(currentEvent.getDate())
-                && newEvent.getCategory().equals(currentEvent.getCategory())
-                && newEvent.getNotes().equals(currentEvent.getNotes())
-                && newEvent.getBitmapImage().equals(currentEvent.getBitmapImage()))
-            return null;
+    }
 
-        return newEvent;
+    private boolean eventWasChanged() {
+        String currentEventDate =
+                EventDateHelper.getEventDateText(this, currentEvent.getDate());
+        return !(getEventName().equals(currentEvent.getName())
+                && getEventDateText().equals(currentEventDate)
+                && getCategoryName().equals(currentEvent.getCategory().getName())
+                && getNotes().equals(currentEvent.getNotes()));
+        //TODO && getBitmapImage().equals(currentEvent.getBitmapImage()))
     }
 
     private String getEventName() {
@@ -290,5 +305,27 @@ public class EventActivity extends AppCompatActivity {
     private String getNotes() {
         if (notesEditText.getText() == null) return "";
         return notesEditText.getText().toString().trim();
+    }
+
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the event.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
