@@ -16,6 +16,9 @@ import ru.startandroid.importantdates.core.domain.EventDate;
 public class EventDateHelper {
     private static final String LOG_TAG = EventDateHelper.class.getSimpleName();
 
+    /**
+     * Convert date string to {@link EventDate}
+     */
     public static EventDate getEventDateObject(Context context, String dateText) {
         DateTime date;
 
@@ -61,6 +64,9 @@ public class EventDateHelper {
         return null;
     }
 
+    /**
+     * Convert {@link EventDate} to string using format pattern
+     */
     public static String getEventDateText(Context context, EventDate eventDate) {
         DateTime date;
         String dateFormatPattern;

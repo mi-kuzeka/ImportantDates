@@ -14,6 +14,7 @@
     <!-- Image box description for event item in list -->
     <string name="image_box_description">Event image</string>
 
+    <!-- Temp event data for designing layout -->
     <string name="temp_event_day">23</string>
     <string name="temp_event_name">Jack</string>
     <string name="temp_event_category">Birthday</string>
