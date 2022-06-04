@@ -48,4 +48,10 @@ public class EventViewModel extends ImportantDatesViewModel {
             interactors.updateEvent().invoke(event);
         });
     }
+
+    public void deleteEvent(Event event) {
+        AppExecutors.getInstance().getDiskIO().execute(() -> {
+            interactors.deleteEvent().invoke(event);
+        });
+    }
 }

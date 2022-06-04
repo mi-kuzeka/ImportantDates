@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -75,9 +77,7 @@ public class EventDateHelper {
             // DateFormat for date without year
             dateFormatPattern = context.getResources().getString(R.string.date_format_without_year);
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                dateFormatPattern,
-                Locale.getDefault());
-        return dateFormat.format(date.toDate());
+        DateTimeFormatter dateFormat = DateTimeFormat.forPattern(dateFormatPattern);
+        return dateFormat.print(date);
     }
 }

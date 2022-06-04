@@ -222,7 +222,8 @@ public class EventActivity extends AppCompatActivity {
 
     private void initDeleteOnClickListener() {
         deleteEventImageView.setVisibility(View.VISIBLE);
-//        deleteEventImageView.setOnClickListener(view -> );
+        deleteEventImageView.setOnClickListener(view ->
+                showDeleteConfirmationDialog());
     }
 
     private void initSaveOnClickListener(Context context) {
@@ -327,5 +328,33 @@ public class EventActivity extends AppCompatActivity {
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, (dialog, id) -> {
+            // User clicked the "Delete" button, so delete the event.
+            deleteEvent();
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // User clicked the "Cancel" button, so dismiss the dialog
+            // and continue editing the event.
+            if (dialog != null) {
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteEvent() {
+        eventViewModel.deleteEvent(currentEvent);
+        setResult(RESULT_OK);
+        finish();
     }
 }
