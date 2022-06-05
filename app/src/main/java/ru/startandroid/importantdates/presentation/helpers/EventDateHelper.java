@@ -86,4 +86,29 @@ public class EventDateHelper {
         DateTimeFormatter dateFormat = DateTimeFormat.forPattern(dateFormatPattern);
         return dateFormat.print(date);
     }
+
+    /**
+     * Convert {@link EventDate} to string using format pattern for view mode
+     */
+    public static String getEventDateForViewMode(Context context, EventDate eventDate) {
+        DateTime date;
+        String dateFormatPattern;
+        if (eventDate.hasYear()) {
+            date = new DateTime(eventDate.getYear(), eventDate.getMonth(), eventDate.getDay(),
+                    0, 0, 0);
+
+            // DateFormat for full date
+            dateFormatPattern = context.getResources()
+                    .getString(R.string.full_date_format_view_mode);
+        } else {
+            date = new DateTime(0, eventDate.getMonth(), eventDate.getDay(),
+                    0, 0, 0);
+
+            // DateFormat for date without year
+            dateFormatPattern = context.getResources()
+                    .getString(R.string.date_format_without_year_view_mode);
+        }
+        DateTimeFormatter dateFormat = DateTimeFormat.forPattern(dateFormatPattern);
+        return dateFormat.print(date);
+    }
 }

@@ -37,8 +37,12 @@
     <string name="event_fragment_title_new_event">Add new event</string>
     <!-- Title for the fragment to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_fragment_title_edit_event">Edit event</string>
+    <!-- Title for the fragment to view an existing event [CHAR LIMIT=20] -->
+    <string name="event_fragment_title_view_event">View event</string>
     <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
     <string name="save_button_hint">Save event</string>
+    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="edit_button_hint">Edit event</string>
     <!-- Hint for delete button [CHAR_LIMIT=20] -->
     <string name="delete_button_hint">Delete event</string>
     <!-- Hint for back button in event creator/editor [CHAR_LIMIT=20] -->
@@ -64,6 +68,14 @@
     <string name="full_date_format">MMddyyyy</string>
     <!-- Date format without year, example date: 04.29 -->
     <string name="date_format_without_year">MMdd</string>
+
+    <!-- Pattern for age label, example: turns 5 y.o. [CHAR_LIMIT=20] -->
+    <string name="event_age_label">turns %01d y.o.</string>
+
+    <!-- Date format, example date: 29 Apr 1990 -->
+    <string name="full_date_format_view_mode">dd MMM yyyy</string>
+    <!-- Date format without year, example date: 29 Apr -->
+    <string name="date_format_without_year_view_mode">dd MMM</string>
 
     <!-- Error message for required fields -->
     <string name="error_field_is_required">This field is required</string>

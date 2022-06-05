@@ -1,12 +1,21 @@
 package ru.startandroid.importantdates.presentation.helpers;
 
+import android.content.Context;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import ru.startandroid.importantdates.R;
+
 public class EventAgeHelper {
     //If it is impossible to calculate age of the event, set the value -1
     public static final int EMPTY_AGE = -1;
+
+    public static String getAgeText(Context context, int eventYear) {
+        String formatPattern = context.getResources().getString(R.string.event_age_label);
+        return String.format(formatPattern, getAge(eventYear));
+    }
 
     /**
      * Calculate age for event

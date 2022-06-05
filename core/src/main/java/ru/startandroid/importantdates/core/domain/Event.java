@@ -121,6 +121,13 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Check if event has the year in date
+     */
+    public boolean hasYear() {
+        return this.date.hasYear();
+    }
+
+    /**
      * Get category of the Event
      */
     public Category getCategory() {

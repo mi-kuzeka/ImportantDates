@@ -28,6 +28,7 @@ import ru.startandroid.importantdates.core.domain.EventDate;
 import ru.startandroid.importantdates.framework.ImportantDatesViewModelFactory;
 import ru.startandroid.importantdates.presentation.MainActivity;
 import ru.startandroid.importantdates.presentation.customview.MaskedEditText;
+import ru.startandroid.importantdates.presentation.helpers.EventAgeHelper;
 import ru.startandroid.importantdates.presentation.helpers.EventDateHelper;
 import ru.startandroid.importantdates.presentation.helpers.EventValidator;
 
@@ -36,15 +37,30 @@ public class EventActivity extends AppCompatActivity {
 
     private EventViewModel eventViewModel;
 
+    // Flag for creating new event
     private boolean isNewEvent;
+    // Flag for view mode of existing event (can't edit)
+    private boolean isViewMode;
+    // Current {@link Event} object for existing event
     private Event currentEvent;
+    // Category name of current event
     private String categoryName;
+
+    TextView eventEditorTitle;
+    TextView chooseImageText;
 
     private TextInputEditText nameEditText;
     private TextInputLayout nameInputLayout;
 
+    private TextInputEditText dateViewText;
+    private TextInputLayout dateViewLayout;
+    private TextView ageTextView;
+
     private MaskedEditText dateEditText;
     private TextInputLayout dateInputLayout;
+
+    private TextInputEditText categoryViewText;
+    private TextInputLayout categoryViewLayout;
 
     private MaterialAutoCompleteTextView categoryEditText;
     private TextInputLayout categoryInputLayout;
@@ -54,6 +70,7 @@ public class EventActivity extends AppCompatActivity {
     private ImageView backImageView;
     private ImageView deleteEventImageView;
     private ImageView saveEventImageView;
+    private ImageView editEventImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +82,12 @@ public class EventActivity extends AppCompatActivity {
             currentEvent = b.getParcelable(MainActivity.EVENT_KEY);
         isNewEvent = (currentEvent == null);
 
-        TextView eventEditorTitle = findViewById(R.id.event_editor_title);
+        findViewsById();
         if (isNewEvent) {
             eventEditorTitle.setText(R.string.event_fragment_title_new_event);
         } else {
-            eventEditorTitle.setText(R.string.event_fragment_title_edit_event);
+            isViewMode = true;
         }
-
-        findViewsById();
         initViewModel();
         initValidation(this);
         initBackOnClickListener();
@@ -82,16 +97,28 @@ public class EventActivity extends AppCompatActivity {
             nameEditText.requestFocus();
         } else {
             fillViews(this);
+            showViewsForCurrentMode();
+            initEditOnClickListener();
             initDeleteOnClickListener();
         }
     }
 
     private void findViewsById() {
+        eventEditorTitle = findViewById(R.id.event_editor_title);
+        chooseImageText = findViewById(R.id.choose_image_text);
+
         nameEditText = findViewById(R.id.name_edit_text);
         nameInputLayout = findViewById(R.id.name_text_input);
 
+        dateViewText = findViewById(R.id.date_view_text);
+        dateViewLayout = findViewById(R.id.date_view_layout);
+        ageTextView = findViewById(R.id.age_text_view);
+
         dateEditText = findViewById(R.id.date_edit_text);
         dateInputLayout = findViewById(R.id.date_text_input);
+
+        categoryViewText = findViewById(R.id.category_view_text);
+        categoryViewLayout = findViewById(R.id.category_view_layout);
 
         categoryEditText = findViewById(R.id.category_edit_text);
         categoryInputLayout = findViewById(R.id.category_text_input);
@@ -101,15 +128,46 @@ public class EventActivity extends AppCompatActivity {
         backImageView = findViewById(R.id.back_to_event_list);
         deleteEventImageView = findViewById(R.id.delete_event);
         saveEventImageView = findViewById(R.id.save_event);
+        editEventImageView = findViewById(R.id.edit_event);
     }
 
     private void fillViews(Context context) {
         nameEditText.setText(currentEvent.getName());
+        nameEditText.setEnabled(true);
+        dateViewText.setText(EventDateHelper
+                .getEventDateForViewMode(context, currentEvent.getDate()));
+        if (currentEvent.hasYear())
+            ageTextView.setText(EventAgeHelper.getAgeText(context, currentEvent.getYear()));
         dateEditText.setText(EventDateHelper
                 .getEventDateText(context, currentEvent.getDate()));
+        categoryViewText.setText(currentEvent.getCategory().getName());
         categoryEditText.setText(currentEvent.getCategory().getName());
         notesEditText.setText(currentEvent.getNotes());
         //TODO set image
+    }
+
+    private void showViewsForCurrentMode() {
+        if (isViewMode) {
+            eventEditorTitle.setText(R.string.event_fragment_title_view_event);
+        } else {
+            eventEditorTitle.setText(R.string.event_fragment_title_edit_event);
+        }
+        chooseImageText.setVisibility(isViewMode ? View.INVISIBLE : View.VISIBLE);
+        nameEditText.setEnabled(!isViewMode);
+        dateViewLayout.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
+        ageTextView.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
+        dateInputLayout.setVisibility(isViewMode ? View.INVISIBLE : View.VISIBLE);
+        categoryViewLayout.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
+        categoryInputLayout.setVisibility(isViewMode ? View.INVISIBLE : View.VISIBLE);
+        notesEditText.setEnabled(!isViewMode);
+        if (isViewMode) {
+            notesEditText.setHint("");
+        } else {
+            notesEditText.setHint(R.string.notes_edit_hint);
+        }
+        deleteEventImageView.setVisibility(isViewMode ? View.GONE : View.VISIBLE);
+        saveEventImageView.setVisibility(isViewMode ? View.GONE : View.VISIBLE);
+        editEventImageView.setVisibility(isViewMode ? View.VISIBLE : View.GONE);
     }
 
     private void initViewModel() {
@@ -220,8 +278,15 @@ public class EventActivity extends AppCompatActivity {
         });
     }
 
+    private void initEditOnClickListener() {
+        editEventImageView.setOnClickListener(view -> {
+                    isViewMode = false;
+                    showViewsForCurrentMode();
+                }
+        );
+    }
+
     private void initDeleteOnClickListener() {
-        deleteEventImageView.setVisibility(View.VISIBLE);
         deleteEventImageView.setOnClickListener(view ->
                 showDeleteConfirmationDialog());
     }
