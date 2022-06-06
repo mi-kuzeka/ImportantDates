@@ -20,6 +20,7 @@ import java.util.List;
 import ru.startandroid.importantdates.R;
 import ru.startandroid.importantdates.core.domain.Event;
 import ru.startandroid.importantdates.framework.ImportantDatesViewModelFactory;
+import ru.startandroid.importantdates.framework.UserPreferences;
 import ru.startandroid.importantdates.presentation.customview.EmptyRecyclerView;
 
 /**
@@ -122,6 +123,32 @@ public class EventListFragment extends Fragment {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+        sortEvents();
+    }
+
+    public void sortEvents() {
+        UserPreferences userPreferences = new UserPreferences(getContext());
+        int orderBy = userPreferences.getOrderBy(getContext());
+        switch (orderBy) {
+            case UserPreferences.ORDER_BY_DAY_ASC:
+                events.sort(Comparator.comparingInt(Event::getDay)
+                        .thenComparing(Event::getName, String.CASE_INSENSITIVE_ORDER));
+                break;
+            case UserPreferences.ORDER_BY_DAY_DESC:
+                events.sort(Comparator.comparingInt(Event::getDay).reversed()
+                        .thenComparing(Event::getName, String.CASE_INSENSITIVE_ORDER));
+                break;
+            case UserPreferences.ORDER_BY_NAME_ASC:
+                events.sort(Comparator.comparing(Event::getName, String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(Event::getDay));
+                break;
+            case UserPreferences.ORDER_BY_NAME_DESC:
+                events.sort(Comparator.comparing(Event::getName, String.CASE_INSENSITIVE_ORDER)
+                        .reversed().thenComparing(Event::getDay));
+                break;
+            default:
+                events.sort(Comparator.comparingInt(Event::getDay));
+        }
         if (recyclerViewAdapter != null) {
             recyclerViewAdapter.update(this.events);
         }

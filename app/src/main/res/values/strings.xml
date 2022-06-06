@@ -99,4 +99,13 @@
 
     <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
     <string name="cancel">Cancel</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="order_by_key" translatable="false">order_by</string>
+    <string name="order_by_default" translatable="false">@string/order_by_day_asc</string>
+
+    <string name="order_by_day_asc" translatable="false">1-2</string>
+    <string name="order_by_day_desc" translatable="false">2-1</string>
+    <string name="order_by_name_asc" translatable="false">A-Z</string>
+    <string name="order_by_name_desc" translatable="false">Z-A</string>
 </resources>
