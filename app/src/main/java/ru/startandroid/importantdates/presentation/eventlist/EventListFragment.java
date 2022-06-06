@@ -100,10 +100,6 @@ public class EventListFragment extends Fragment {
 
         if (events == null) events = new ArrayList<>();
 
-        if (!events.isEmpty()) {
-            events.sort(Comparator.comparingInt(Event::getDay));
-        }
-
         EmptyRecyclerView recyclerView = rootView.findViewById(R.id.event_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
@@ -123,7 +119,7 @@ public class EventListFragment extends Fragment {
 
     public void setEvents(List<Event> events) {
         this.events = events;
-        sortEvents();
+        if (this.events.size() > 0) sortEvents();
     }
 
     public void sortEvents() {

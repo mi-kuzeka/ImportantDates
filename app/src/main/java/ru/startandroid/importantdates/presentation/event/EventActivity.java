@@ -319,15 +319,23 @@ public class EventActivity extends AppCompatActivity {
             Event newEvent = new Event(0, getEventName(), eventDate, category, getNotes());
             eventViewModel.addEvent(newEvent);
             setResult(Activity.RESULT_OK);
+            putParcelableEventToIntent(newEvent);
             finish();
         } else {
             if (eventWasChanged()) {
                 Event updatedEvent = getUpdatedEvent(category);
                 eventViewModel.updateEvent(updatedEvent);
                 setResult(Activity.RESULT_OK);
+                putParcelableEventToIntent(updatedEvent);
             }
             finish();
         }
+    }
+
+    private void putParcelableEventToIntent(Event event) {
+        Bundle b = new Bundle();
+        b.putParcelable(MainActivity.EVENT_KEY, event);
+        getIntent().putExtras(b);
     }
 
     private Event getUpdatedEvent(Category category) {

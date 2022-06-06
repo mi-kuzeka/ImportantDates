@@ -56,6 +56,7 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         fragment.refreshEvents();
+                        //TODO refresh events if month has been changed
                     }
                 });
 

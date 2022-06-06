@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.List;
 
 import ru.startandroid.importantdates.R;
+import ru.startandroid.importantdates.core.domain.Event;
 import ru.startandroid.importantdates.framework.UserPreferences;
 import ru.startandroid.importantdates.presentation.event.EventActivity;
 import ru.startandroid.importantdates.presentation.eventlist.EventListFragment;
@@ -80,13 +81,19 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    getCurrentFragment().refreshEvents();
+                    Bundle b = getIntent().getExtras();
+                    int eventMonth = viewPager.getCurrentItem() + 1;
+                    if (b != null) {
+                        Event event = b.getParcelable(MainActivity.EVENT_KEY);
+                        eventMonth = event.getMonth();
+                    }
+                    getFragmentByMonth(eventMonth).refreshEvents();
                 }
             });
 
-    private EventListFragment getCurrentFragment() {
+    private EventListFragment getFragmentByMonth(int month) {
         return (EventListFragment)
-                getSupportFragmentManager().findFragmentByTag("f" + viewPager.getCurrentItem());
+                getSupportFragmentManager().findFragmentByTag("f" + (month - 1));
     }
 
     private void sortEvents() {
@@ -98,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setIconToSortButton(Button sortButton,  int orderBy) {
+    private void setIconToSortButton(Button sortButton, int orderBy) {
         switch (orderBy) {
             case UserPreferences.ORDER_BY_DAY_DESC:
             case UserPreferences.ORDER_BY_NAME_DESC:
