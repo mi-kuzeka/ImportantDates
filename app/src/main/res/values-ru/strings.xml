@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hint for expanded menu button [CHAR_LIMIT=20] -->
+    <string name="menu_button_hint">Меню</string>
+    <!-- Hint for search button [CHAR_LIMIT=20] -->
+    <string name="search_button_hint">Поиск события</string>
+
+    <!-- Title of empty list about no events in the list -->
+    <string name="no_events_title">Здесь пока нет событий</string>
+    <!-- Subtitle of empty list -->
+    <string name="no_events_subtitle">Добавьте событие для этого месяца\n
+        и оно отобразится здесь.</string>
+    <!-- Image box description for event item in list -->
+    <string name="image_box_description">Изображения для события</string>
+
+    <!-- Temp event data for designing layout -->
+    <string name="temp_event_day">23</string>
+    <string name="temp_event_name">Иван</string>
+    <string name="temp_event_category">День рождения</string>
+
+    <!-- Month names - titles for tabs -->
+    <string name="january_month">Январь</string>
+    <string name="february_month">Февраль</string>
+    <string name="march_month">Март</string>
+    <string name="april_month">Апрель</string>
+    <string name="may_month">Май</string>
+    <string name="june_month">Июнь</string>
+    <string name="july_month">Июль</string>
+    <string name="august_month">Август</string>
+    <string name="september_month">Сентябрь</string>
+    <string name="october_month">Октябрь</string>
+    <string name="november_month">Ноябрь</string>
+    <string name="december_month">Декабрь</string>
+
+    <!-- Title for the fragment to add a new event [CHAR LIMIT=20] -->
+    <string name="event_fragment_title_new_event">Добавление события</string>
+    <!-- Title for the fragment to edit an existing event [CHAR LIMIT=20] -->
+    <string name="event_fragment_title_edit_event">Редактирование</string>
+    <!-- Title for the fragment to view an existing event [CHAR LIMIT=20] -->
+    <string name="event_fragment_title_view_event">Просмотр события</string>
+    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="save_button_hint">Сохранить</string>
+    <!-- Hint for save button in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="edit_button_hint">Редактировать</string>
+    <!-- Hint for delete button [CHAR_LIMIT=20] -->
+    <string name="delete_button_hint">Удалить событие</string>
+    <!-- Hint for back button in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="back_button_hint">К списку событий</string>
+    <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
+    <string name="choose_image_description">Выбрать изображение</string>
+    <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="name_edit_title">Название</string>
+    <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="date_edit_title">Дата</string>
+    <!-- Mask for date, example date: 04.29.1990 -->
+    <string name="full_date_mask">ддммгггг</string>
+    <!-- Mask for date without year, example date: 04.29 -->
+    <string name="date_mask_without_year">ддмм</string>
+    <!-- Title for field Category in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="category_spinner_hint">Тип события</string>
+    <!-- Title for field Notes in event creator/editor [CHAR_LIMIT=20] -->
+    <string name="notes_edit_title">Примечание</string>
+    <!-- Hint for field Notes in event creator/editor -->
+    <string name="notes_edit_hint">Здесь можно ввести дополнительную информацию о событии</string>
+
+    <!-- Date format, example date: 29.04.1990 -->
+    <string name="full_date_format">ddMMyyyy</string>
+    <!-- Date format without year, example date: 29.04 -->
+    <string name="date_format_without_year">ddMM</string>
+
+    <!-- Pattern for age label, example: turns 5 y.o. [CHAR_LIMIT=20] -->
+    <string name="event_age_label">исполняется %01d лет</string>
+
+    <!-- Date format, example date: 29 Apr 1990 -->
+    <string name="full_date_format_view_mode">dd MMM yyyy</string>
+    <!-- Date format without year, example date: 29 Apr -->
+    <string name="date_format_without_year_view_mode">dd MMM</string>
+
+    <!-- Error message for required fields -->
+    <string name="error_field_is_required">Это поле обязательное</string>
+    <!-- Error message for date: incorrect format -->
+    <string name="error_date_incorrect_format">Неверный формат</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Отменить изменения и выйти из редактирования?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Отменить изменения</string>
+
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Продолжить редактирование</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Удалить это событие?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
+    <string name="delete">Удалить</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current event [CHAR LIMIT=20] -->
+    <string name="cancel">Отмена</string>
+    <string name="order_by_name_asc" translatable="true">А-Я</string>
+    <string name="order_by_name_desc" translatable="true">Я-А</string>
+</resources>
