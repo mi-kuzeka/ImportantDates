@@ -119,7 +119,11 @@ public class EventListFragment extends Fragment {
 
     public void setEvents(List<Event> events) {
         this.events = events;
-        if (this.events.size() > 0) sortEvents();
+        if (this.events.size() > 0) {
+            sortEvents();
+            return;
+        }
+        refreshRecyclerView();
     }
 
     public void sortEvents() {
@@ -145,6 +149,10 @@ public class EventListFragment extends Fragment {
             default:
                 events.sort(Comparator.comparingInt(Event::getDay));
         }
+        refreshRecyclerView();
+    }
+
+    private void refreshRecyclerView() {
         if (recyclerViewAdapter != null) {
             recyclerViewAdapter.update(this.events);
         }
