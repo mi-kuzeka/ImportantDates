@@ -33,7 +33,7 @@
     <string name="december_month">Декабрь</string>
 
     <!-- Title for the fragment to add a new event [CHAR LIMIT=20] -->
-    <string name="event_fragment_title_new_event">Добавление события</string>
+    <string name="event_fragment_title_new_event">Новое событие</string>
     <!-- Title for the fragment to edit an existing event [CHAR LIMIT=20] -->
     <string name="event_fragment_title_edit_event">Редактирование</string>
     <!-- Title for the fragment to view an existing event [CHAR LIMIT=20] -->
@@ -47,7 +47,7 @@
     <!-- Hint for back button in event creator/editor [CHAR_LIMIT=20] -->
     <string name="back_button_hint">К списку событий</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
-    <string name="choose_image_description">Выбрать изображение</string>
+    <string name="choose_image_description">Выбрать\nизображение</string>
     <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
     <string name="name_edit_title">Название</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->

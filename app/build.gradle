@@ -34,14 +34,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     //for lifecycle and LiveData and ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.4.1"
     implementation "androidx.lifecycle:lifecycle-livedata:2.4.1"
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'joda-time:joda-time:2.10.14'
 
     def room_version = "2.4.2"
@@ -49,7 +49,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-    implementation 'com.google.android.material:material:1.6.0'
+    // This library is used for loading the cropped image into ImageView.
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

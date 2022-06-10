@@ -1,5 +1,6 @@
 package ru.startandroid.importantdates.presentation.event;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,7 +8,11 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,7 +22,10 @@ import android.widget.TextView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.soundcloud.android.crop.Crop;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +75,7 @@ public class EventActivity extends AppCompatActivity {
 
     private TextInputEditText notesEditText;
 
+    private ImageView bitmapImageView;
     private ImageView backImageView;
     private ImageView deleteEventImageView;
     private ImageView saveEventImageView;
@@ -92,6 +101,7 @@ public class EventActivity extends AppCompatActivity {
         initValidation(this);
         initBackOnClickListener();
         initSaveOnClickListener(this);
+        initChooseImageOnClickListener();
 
         if (isNewEvent) {
             nameEditText.requestFocus();
@@ -125,6 +135,7 @@ public class EventActivity extends AppCompatActivity {
 
         notesEditText = findViewById(R.id.notes_edit_text);
 
+        bitmapImageView = findViewById(R.id.choose_image);
         backImageView = findViewById(R.id.back_to_event_list);
         deleteEventImageView = findViewById(R.id.delete_event);
         saveEventImageView = findViewById(R.id.save_event);
@@ -272,6 +283,12 @@ public class EventActivity extends AppCompatActivity {
         showUnsavedChangesDialog(discardButtonClickListener);
     }
 
+    private void initChooseImageOnClickListener() {
+        chooseImageText.setOnClickListener(view -> {
+            chooseImage();
+        });
+    }
+
     private void initBackOnClickListener() {
         backImageView.setOnClickListener(view -> {
             onBackPressed();
@@ -318,15 +335,15 @@ public class EventActivity extends AppCompatActivity {
         if (isNewEvent) {
             Event newEvent = new Event(0, getEventName(), eventDate, category, getNotes());
             eventViewModel.addEvent(newEvent);
-            setResult(Activity.RESULT_OK);
             putParcelableEventToIntent(newEvent);
+            setResult(Activity.RESULT_OK, getIntent());
             finish();
         } else {
             if (eventWasChanged()) {
                 Event updatedEvent = getUpdatedEvent(category);
                 eventViewModel.updateEvent(updatedEvent);
-                setResult(Activity.RESULT_OK);
                 putParcelableEventToIntent(updatedEvent);
+                setResult(Activity.RESULT_OK, getIntent());
             }
             finish();
         }
@@ -379,6 +396,43 @@ public class EventActivity extends AppCompatActivity {
     private String getNotes() {
         if (notesEditText.getText() == null) return "";
         return notesEditText.getText().toString().trim();
+    }
+
+    private void chooseImage() {
+        Crop.pickImage(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == Crop.REQUEST_PICK) {
+                Uri sourceUri = data.getData();
+                Uri destinationUri = Uri.fromFile(
+                        new File(getCacheDir(), "cropped")
+                );
+
+                Crop.of(sourceUri, destinationUri).asSquare().start(this);
+
+            } else if (requestCode == Crop.REQUEST_CROP) {
+                Uri outputUri = Crop.getOutput(data);
+                if (outputUri != null) {
+                    Bitmap selectedImageBitmap = null;
+                    try {
+                        selectedImageBitmap =
+                                MediaStore.Images.Media.getBitmap(
+                                        this.getContentResolver(),
+                                        outputUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    bitmapImageView.setImageBitmap(selectedImageBitmap);
+                    chooseImageText.setVisibility(View.INVISIBLE);
+
+                }
+            }
+        }
     }
 
     private void showUnsavedChangesDialog(
