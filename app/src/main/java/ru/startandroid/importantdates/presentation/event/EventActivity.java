@@ -13,7 +13,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,7 +25,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +38,7 @@ import ru.startandroid.importantdates.presentation.customview.MaskedEditText;
 import ru.startandroid.importantdates.presentation.helpers.EventAgeHelper;
 import ru.startandroid.importantdates.presentation.helpers.EventDateHelper;
 import ru.startandroid.importantdates.presentation.helpers.EventValidator;
+import ru.startandroid.importantdates.presentation.helpers.ImageHelper;
 
 public class EventActivity extends AppCompatActivity {
     private final String LOG_TAG = EventActivity.class.getSimpleName();
@@ -55,8 +54,8 @@ public class EventActivity extends AppCompatActivity {
     // Category name of current event
     private String categoryName;
 
-    TextView eventEditorTitle;
-    TextView chooseImageText;
+    private TextView eventEditorTitle;
+    private TextView chooseImageText;
 
     private TextInputEditText nameEditText;
     private TextInputLayout nameInputLayout;
@@ -150,6 +149,7 @@ public class EventActivity extends AppCompatActivity {
         nameEditText.setEnabled(true);
         dateViewText.setText(EventDateHelper
                 .getEventDateForViewMode(context, currentEvent.getDate()));
+
         if (currentEvent.hasYear())
             ageTextView.setText(EventAgeHelper.getAgeText(context, currentEvent.getYear()));
         dateEditText.setText(EventDateHelper
@@ -157,6 +157,7 @@ public class EventActivity extends AppCompatActivity {
         categoryViewText.setText(currentEvent.getCategory().getName());
         categoryEditText.setText(currentEvent.getCategory().getName());
         notesEditText.setText(currentEvent.getNotes());
+
         Bitmap image = currentEvent.getBitmapImage();
         if (image != null) bitmapImageView.setImageBitmap(currentEvent.getBitmapImage());
     }
@@ -363,6 +364,7 @@ public class EventActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putParcelable(MainActivity.EVENT_KEY, event);
         getIntent().putExtras(b);
+        getIntent().putExtra(MainActivity.EVENT_IMAGE_KEY, event.getBitmapImage());
     }
 
     private Event getUpdatedEvent(Category category) {
@@ -377,6 +379,7 @@ public class EventActivity extends AppCompatActivity {
     private boolean eventWasChanged() {
         String currentEventDate =
                 EventDateHelper.getEventDateText(this, currentEvent.getDate());
+
         return !(getEventName().equals(currentEvent.getName())
                 && getEventDateText().equals(currentEventDate)
                 && getCategoryName().equals(currentEvent.getCategory().getName())
@@ -442,16 +445,12 @@ public class EventActivity extends AppCompatActivity {
             } else if (requestCode == Crop.REQUEST_CROP) {
                 Uri outputUri = Crop.getOutput(data);
                 if (outputUri != null) {
-                    Bitmap selectedImageBitmap = null;
-                    try {
-                        selectedImageBitmap =
-                                MediaStore.Images.Media.getBitmap(
-                                        this.getContentResolver(),
-                                        outputUri);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    bitmapImageView.setImageBitmap(selectedImageBitmap);
+                    Bitmap rotatedImage = ImageHelper.getRotatedBitmap(outputUri.getPath());
+                    if (rotatedImage == null) return;
+
+                    Bitmap scaledBitmap = ImageHelper.getScaledBitmap(rotatedImage);
+
+                    bitmapImageView.setImageBitmap(scaledBitmap);
                     chooseImageText.setVisibility(View.INVISIBLE);
                 }
             }
