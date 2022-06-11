@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -87,8 +88,10 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
         Bundle b = getIntent().getExtras();
-        if (b != null)
+        if (b != null) {
             currentEvent = b.getParcelable(MainActivity.EVENT_KEY);
+            currentEvent.setImage(b.getParcelable(MainActivity.EVENT_IMAGE_KEY));
+        }
         isNewEvent = (currentEvent == null);
 
         findViewsById();
@@ -154,7 +157,8 @@ public class EventActivity extends AppCompatActivity {
         categoryViewText.setText(currentEvent.getCategory().getName());
         categoryEditText.setText(currentEvent.getCategory().getName());
         notesEditText.setText(currentEvent.getNotes());
-        //TODO set image
+        Bitmap image = currentEvent.getBitmapImage();
+        if (image != null) bitmapImageView.setImageBitmap(currentEvent.getBitmapImage());
     }
 
     private void showViewsForCurrentMode() {
@@ -163,7 +167,8 @@ public class EventActivity extends AppCompatActivity {
         } else {
             eventEditorTitle.setText(R.string.event_fragment_title_edit_event);
         }
-        chooseImageText.setVisibility(isViewMode ? View.INVISIBLE : View.VISIBLE);
+        chooseImageText.setVisibility(
+                isViewMode || currentEvent.hasImage() ? View.INVISIBLE : View.VISIBLE);
         nameEditText.setEnabled(!isViewMode);
         dateViewLayout.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
         ageTextView.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
@@ -330,10 +335,15 @@ public class EventActivity extends AppCompatActivity {
         // TODO: show alert
         if (eventDate == null) return;
 
-        //TODO: get image
-
         if (isNewEvent) {
-            Event newEvent = new Event(0, getEventName(), eventDate, category, getNotes());
+            Event newEvent = new Event(
+                    0,
+                    getEventName(),
+                    eventDate,
+                    category,
+                    getNotes(),
+                    getImage());
+
             eventViewModel.addEvent(newEvent);
             putParcelableEventToIntent(newEvent);
             setResult(Activity.RESULT_OK, getIntent());
@@ -361,8 +371,7 @@ public class EventActivity extends AppCompatActivity {
                 getEventDate(),
                 category,
                 getNotes(),
-                //TODO get image
-                null);
+                getImage());
     }
 
     private boolean eventWasChanged() {
@@ -371,8 +380,14 @@ public class EventActivity extends AppCompatActivity {
         return !(getEventName().equals(currentEvent.getName())
                 && getEventDateText().equals(currentEventDate)
                 && getCategoryName().equals(currentEvent.getCategory().getName())
-                && getNotes().equals(currentEvent.getNotes()));
-        //TODO && getBitmapImage().equals(currentEvent.getBitmapImage()))
+                && getNotes().equals(currentEvent.getNotes())
+                && (imageStaySame()));
+    }
+
+    private boolean imageStaySame() {
+        if (getImage() == null && currentEvent.getBitmapImage() == null) return true;
+        if (getImage() == null && currentEvent.getBitmapImage() != null) return false;
+        return getImage().equals(currentEvent.getBitmapImage());
     }
 
     private String getEventName() {
@@ -396,6 +411,15 @@ public class EventActivity extends AppCompatActivity {
     private String getNotes() {
         if (notesEditText.getText() == null) return "";
         return notesEditText.getText().toString().trim();
+    }
+
+    private Bitmap getImage() {
+        try {
+            BitmapDrawable drawable = (BitmapDrawable) bitmapImageView.getDrawable();
+            return drawable.getBitmap();
+        } catch (ClassCastException e) {
+            return null;
+        }
     }
 
     private void chooseImage() {
@@ -429,7 +453,6 @@ public class EventActivity extends AppCompatActivity {
                     }
                     bitmapImageView.setImageBitmap(selectedImageBitmap);
                     chooseImageText.setVisibility(View.INVISIBLE);
-
                 }
             }
         }

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
      * Key for passing Event object to the {@link EventActivity}
      */
     public static final String EVENT_KEY = "event";
+    public static final String EVENT_IMAGE_KEY = "event_image";
     private ViewPager2 viewPager;
 
     @Override
@@ -81,12 +82,13 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    Bundle b = getIntent().getExtras();
                     int eventMonth = viewPager.getCurrentItem() + 1;
-                    if (b != null) {
-                        Event event = b.getParcelable(MainActivity.EVENT_KEY);
-                        eventMonth = event.getMonth();
+                    Intent data = result.getData();
+                    if (data != null) {
+                        Event event = data.getParcelableExtra(MainActivity.EVENT_KEY);
+                        if (event != null) eventMonth = event.getMonth();
                     }
+
                     getFragmentByMonth(eventMonth).refreshEvents();
                 }
             });

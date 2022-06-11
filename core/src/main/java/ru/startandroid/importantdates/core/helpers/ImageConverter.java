@@ -21,7 +21,7 @@ public class ImageConverter {
     }
 
     public static byte[] getByteArray(Bitmap bitmap) {
-        return getByteArray(bitmap, 0);
+        return getByteArray(bitmap, 100);
     }
 
     public static byte[] getByteArray(Bitmap bitmap, int quality) {

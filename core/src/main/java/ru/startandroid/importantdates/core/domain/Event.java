@@ -6,15 +6,13 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import ru.startandroid.importantdates.core.helpers.ImageConverter;
-
 public class Event implements Parcelable {
     private final int id;
     private final String name;
     private final EventDate date;
     private final Category category;
     private final String notes;
-    private final Bitmap image;
+    private Bitmap image;
 
     /**
      * Create new {@link Event} object
@@ -69,13 +67,14 @@ public class Event implements Parcelable {
         date = source.readParcelable(EventDate.class.getClassLoader());
         category = source.readParcelable(Category.class.getClassLoader());
         notes = source.readString();
-        if (source.readByte() == 0) {
-            image = null;
-        } else {
-            byte[] imageBytes = new byte[source.readInt()];
-            source.readByteArray(imageBytes);
-            image = ImageConverter.getBitmap(imageBytes);
-        }
+        image = null;
+//        if (source.readByte() == 0) {
+//            image = null;
+//        } else {
+//            byte[] imageBytes = new byte[source.readByte()];
+//            source.readByteArray(imageBytes);
+//            image = ImageConverter.getBitmap(imageBytes);
+//        }
     }
 
     /**
@@ -142,10 +141,24 @@ public class Event implements Parcelable {
     }
 
     /**
+     * Check if the event has image
+     */
+    public boolean hasImage() {
+        return this.image != null;
+    }
+
+    /**
      * Get the {@link Bitmap} data of the event image
      */
     public Bitmap getBitmapImage() {
         return this.image;
+    }
+
+    /**
+     * Set the {@link Bitmap} data (image) to {@link Event} object
+     */
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     @Override
@@ -160,7 +173,7 @@ public class Event implements Parcelable {
         parcel.writeParcelable(date, 0);
         parcel.writeParcelable(category, 0);
         parcel.writeString(notes);
-        if (image != null) parcel.writeByteArray(ImageConverter.getByteArray(image));
+//        if (image != null) parcel.writeByteArray(ImageConverter.getByteArray(image));
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
