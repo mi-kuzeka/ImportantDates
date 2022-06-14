@@ -445,10 +445,7 @@ public class EventActivity extends AppCompatActivity {
             } else if (requestCode == Crop.REQUEST_CROP) {
                 Uri outputUri = Crop.getOutput(data);
                 if (outputUri != null) {
-                    Bitmap rotatedImage = ImageHelper.getRotatedBitmap(outputUri.getPath());
-                    if (rotatedImage == null) return;
-
-                    Bitmap scaledBitmap = ImageHelper.getScaledBitmap(rotatedImage);
+                    Bitmap scaledBitmap = ImageHelper.getScaledBitmap(outputUri);
 
                     bitmapImageView.setImageBitmap(scaledBitmap);
                     chooseImageText.setVisibility(View.INVISIBLE);

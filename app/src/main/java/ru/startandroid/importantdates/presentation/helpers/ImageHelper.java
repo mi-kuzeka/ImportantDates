@@ -6,13 +6,18 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.net.Uri;
 
 import androidx.exifinterface.media.ExifInterface;
 
 import java.io.IOException;
 
 public class ImageHelper {
-    public static int IMAGE_RESOLUTION = 150;
+    public static int IMAGE_RESOLUTION = 256;
+
+    public static Bitmap getBitmapFromUri(Uri imageUri) {
+        return BitmapFactory.decodeFile(imageUri.getPath());
+    }
 
     public static Bitmap getRotatedBitmap(String absoluteImPath) {
         Bitmap rotatedBitmap = null;
@@ -44,11 +49,16 @@ public class ImageHelper {
         return rotatedBitmap;
     }
 
-    private static Bitmap rotateImage(Bitmap source, float angle) {
+    public static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
                 matrix, true);
+    }
+
+    public static Bitmap getScaledBitmap(Uri imageUri) {
+        Bitmap bitmap = getBitmapFromUri(imageUri);
+        return getScaledBitmap(bitmap);
     }
 
     public static Bitmap getScaledBitmap(Bitmap bitmap) {
