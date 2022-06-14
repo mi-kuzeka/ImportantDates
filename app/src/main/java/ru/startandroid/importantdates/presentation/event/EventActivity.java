@@ -366,6 +366,10 @@ public class EventActivity extends AppCompatActivity {
             chooseImage();
         });
 
+        changeImageView.setOnClickListener(view -> {
+            chooseImage();
+        });
+
         deleteImageView.setOnClickListener(view -> {
             bitmapImageView.setImageBitmap(null);
             setVisibilityForImageActions();
