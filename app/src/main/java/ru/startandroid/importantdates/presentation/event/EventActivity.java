@@ -81,6 +81,11 @@ public class EventActivity extends AppCompatActivity {
     private ImageView saveEventImageView;
     private ImageView editEventImageView;
 
+    private ImageView changeImageView;
+    private ImageView deleteImageView;
+    private ImageView rotateLeftImageView;
+    private ImageView rotateRightImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,11 +110,11 @@ public class EventActivity extends AppCompatActivity {
         initSaveOnClickListener(this);
         initChooseImageOnClickListener();
 
+        showViewsForCurrentMode();
         if (isNewEvent) {
             nameEditText.requestFocus();
         } else {
-            fillViews(this);
-            showViewsForCurrentMode();
+            fillViewsForEditMode(this);
             initEditOnClickListener();
             initDeleteOnClickListener();
         }
@@ -142,49 +147,86 @@ public class EventActivity extends AppCompatActivity {
         deleteEventImageView = findViewById(R.id.delete_event);
         saveEventImageView = findViewById(R.id.save_event);
         editEventImageView = findViewById(R.id.edit_event);
+
+        changeImageView = findViewById(R.id.change_image);
+        deleteImageView = findViewById(R.id.delete_image);
+        rotateLeftImageView = findViewById(R.id.rotate_left);
+        rotateRightImageView = findViewById(R.id.rotate_right);
     }
 
-    private void fillViews(Context context) {
+    private void fillViewsForEditMode(Context context) {
         nameEditText.setText(currentEvent.getName());
         nameEditText.setEnabled(true);
+
         dateViewText.setText(EventDateHelper
                 .getEventDateForViewMode(context, currentEvent.getDate()));
-
         if (currentEvent.hasYear())
             ageTextView.setText(EventAgeHelper.getAgeText(context, currentEvent.getYear()));
         dateEditText.setText(EventDateHelper
                 .getEventDateText(context, currentEvent.getDate()));
+
         categoryViewText.setText(currentEvent.getCategory().getName());
         categoryEditText.setText(currentEvent.getCategory().getName());
+
         notesEditText.setText(currentEvent.getNotes());
 
-        Bitmap image = currentEvent.getBitmapImage();
-        if (image != null) bitmapImageView.setImageBitmap(currentEvent.getBitmapImage());
+        if (currentEvent.hasImage()) bitmapImageView.setImageBitmap(currentEvent.getBitmapImage());
     }
 
     private void showViewsForCurrentMode() {
+        //Set title text
         if (isViewMode) {
             eventEditorTitle.setText(R.string.event_fragment_title_view_event);
         } else {
             eventEditorTitle.setText(R.string.event_fragment_title_edit_event);
         }
-        chooseImageText.setVisibility(
-                isViewMode || currentEvent.hasImage() ? View.INVISIBLE : View.VISIBLE);
+
+        //Set image visibility
+        setVisibilityForImageActions();
+
         nameEditText.setEnabled(!isViewMode);
-        dateViewLayout.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
-        ageTextView.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
-        dateInputLayout.setVisibility(isViewMode ? View.INVISIBLE : View.VISIBLE);
-        categoryViewLayout.setVisibility(isViewMode ? View.VISIBLE : View.INVISIBLE);
-        categoryInputLayout.setVisibility(isViewMode ? View.INVISIBLE : View.VISIBLE);
+
+        int visibleInViewMode = isViewMode ? View.VISIBLE : View.INVISIBLE;
+        int invisibleInViewMode = isViewMode ? View.INVISIBLE : View.VISIBLE;
+
+        //Set date visibility
+        dateViewLayout.setVisibility(visibleInViewMode);
+        ageTextView.setVisibility(visibleInViewMode);
+        dateInputLayout.setVisibility(invisibleInViewMode);
+
+        //Set category visibility
+        categoryViewLayout.setVisibility(visibleInViewMode);
+        categoryInputLayout.setVisibility(invisibleInViewMode);
+
+        //Set notes visibility and hint
         notesEditText.setEnabled(!isViewMode);
         if (isViewMode) {
             notesEditText.setHint("");
         } else {
             notesEditText.setHint(R.string.notes_edit_hint);
         }
-        deleteEventImageView.setVisibility(isViewMode ? View.GONE : View.VISIBLE);
-        saveEventImageView.setVisibility(isViewMode ? View.GONE : View.VISIBLE);
+
+        //Set event actions visibility
+        int goneInViewMode = isViewMode ? View.GONE : View.VISIBLE;
+        deleteEventImageView.setVisibility(goneInViewMode);
+        saveEventImageView.setVisibility(goneInViewMode);
         editEventImageView.setVisibility(isViewMode ? View.VISIBLE : View.GONE);
+    }
+
+    private void setVisibilityForImageActions() {
+        boolean eventHasImage = getImage() != null;
+        chooseImageText.setVisibility(
+                isViewMode || eventHasImage
+                        ? View.INVISIBLE
+                        : View.VISIBLE);
+        int imageActionsVisibility =
+                !isViewMode && eventHasImage
+                        ? View.VISIBLE
+                        : View.GONE;
+        changeImageView.setVisibility(imageActionsVisibility);
+        deleteImageView.setVisibility(imageActionsVisibility);
+        rotateLeftImageView.setVisibility(imageActionsVisibility);
+        rotateRightImageView.setVisibility(imageActionsVisibility);
     }
 
     private void initViewModel() {
@@ -418,6 +460,7 @@ public class EventActivity extends AppCompatActivity {
 
     private Bitmap getImage() {
         try {
+            if (bitmapImageView.getDrawable() == null) return null;
             BitmapDrawable drawable = (BitmapDrawable) bitmapImageView.getDrawable();
             return drawable.getBitmap();
         } catch (ClassCastException e) {
@@ -448,7 +491,7 @@ public class EventActivity extends AppCompatActivity {
                     Bitmap scaledBitmap = ImageHelper.getScaledBitmap(outputUri);
 
                     bitmapImageView.setImageBitmap(scaledBitmap);
-                    chooseImageText.setVisibility(View.INVISIBLE);
+                    setVisibilityForImageActions();
                 }
             }
         }

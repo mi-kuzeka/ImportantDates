@@ -48,6 +48,14 @@
     <string name="back_button_hint">К списку событий</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image_description">Выбрать\nизображение</string>
+    <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
+    <string name="rotate_left_hint">Повернуть влево</string>
+    <!-- Hint to rotate image right [CHAR_LIMIT=20] -->
+    <string name="rotate_right_hint">Повернуть вправо</string>
+    <!-- Hint to change image [CHAR_LIMIT=20] -->
+    <string name="change_image_hint">Изменить изображение</string>
+    <!-- Hint to delete image [CHAR_LIMIT=20] -->
+    <string name="delete_image_hint">Удалить изображение</string>
     <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
     <string name="name_edit_title">Название</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->

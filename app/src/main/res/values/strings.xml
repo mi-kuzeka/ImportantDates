@@ -49,6 +49,14 @@
     <string name="back_button_hint">Back to event list</string>
     <!-- Image box description for event creator/editor [CHAR_LIMIT=20] -->
     <string name="choose_image_description">Choose image</string>
+    <!-- Hint to rotate image left [CHAR_LIMIT=20] -->
+    <string name="rotate_left_hint">Rotate left</string>
+    <!-- Hint to rotate image right [CHAR_LIMIT=20] -->
+    <string name="rotate_right_hint">Rotate right</string>
+    <!-- Hint to change image [CHAR_LIMIT=20] -->
+    <string name="change_image_hint">Change image</string>
+    <!-- Hint to delete image [CHAR_LIMIT=20] -->
+    <string name="delete_image_hint">Delete image</string>
     <!-- Title for field Name in event creator/editor [CHAR_LIMIT=20] -->
     <string name="name_edit_title">Name</string>
     <!-- Title for field Date in event creator/editor [CHAR_LIMIT=20] -->
