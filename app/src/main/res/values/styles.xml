@@ -37,7 +37,7 @@
     </style>
 
     <style name="ChooseImageStyle">
-        <item name="android:src">@drawable/ic_choose_image_light</item>
+        <item name="android:background">@drawable/ic_choose_image_light</item>
     </style>
 
     <style name="ChooseImageTextStyle" parent="Widget.AppCompat.TextView">

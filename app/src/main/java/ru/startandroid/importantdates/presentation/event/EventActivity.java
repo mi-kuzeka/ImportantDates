@@ -108,7 +108,7 @@ public class EventActivity extends AppCompatActivity {
         initValidation(this);
         initBackOnClickListener();
         initSaveOnClickListener(this);
-        initChooseImageOnClickListener();
+        initImageActions();
 
         showViewsForCurrentMode();
         if (isNewEvent) {
@@ -331,12 +331,6 @@ public class EventActivity extends AppCompatActivity {
         showUnsavedChangesDialog(discardButtonClickListener);
     }
 
-    private void initChooseImageOnClickListener() {
-        chooseImageText.setOnClickListener(view -> {
-            chooseImage();
-        });
-    }
-
     private void initBackOnClickListener() {
         backImageView.setOnClickListener(view -> {
             onBackPressed();
@@ -364,6 +358,17 @@ public class EventActivity extends AppCompatActivity {
                     categoryName = getCategoryName();
                 eventViewModel.getCategoryByName(categoryName);
             }
+        });
+    }
+
+    private void initImageActions() {
+        chooseImageText.setOnClickListener(view -> {
+            chooseImage();
+        });
+
+        deleteImageView.setOnClickListener(view -> {
+            bitmapImageView.setImageBitmap(null);
+            setVisibilityForImageActions();
         });
     }
 
