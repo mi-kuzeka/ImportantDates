@@ -374,6 +374,18 @@ public class EventActivity extends AppCompatActivity {
             bitmapImageView.setImageBitmap(null);
             setVisibilityForImageActions();
         });
+
+        int rotationRightAngle = 90;
+        rotateRightImageView.setOnClickListener(view -> {
+            Bitmap rotatedImage = ImageHelper.rotateImage(getImage(), rotationRightAngle);
+            bitmapImageView.setImageBitmap(rotatedImage);
+        });
+
+        int rotationLeftAngle = -90;
+        rotateLeftImageView.setOnClickListener(view -> {
+            Bitmap rotatedImage = ImageHelper.rotateImage(getImage(), rotationLeftAngle);
+            bitmapImageView.setImageBitmap(rotatedImage);
+        });
     }
 
     private void saveEvent(Category category) {
