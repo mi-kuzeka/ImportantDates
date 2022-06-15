@@ -99,7 +99,10 @@
     <string name="keep_editing">Продолжить редактирование</string>
 
     <!-- Dialog message to ask the user to confirm deleting the current event [CHAR LIMIT=NONE] -->
-    <string name="delete_dialog_msg">Удалить это событие?</string>
+    <string name="delete_event_dialog_msg">Удалить это событие?</string>
+
+    <!-- Dialog message to ask the user to confirm deleting image for the current event [CHAR LIMIT=NONE] -->
+    <string name="delete_image_dialog_msg">Удалить это изображение?</string>
 
     <!-- Dialog button text for the option to confirm deleting the current event [CHAR LIMIT=20] -->
     <string name="delete">Удалить</string>

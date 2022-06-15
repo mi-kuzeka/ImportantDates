@@ -119,44 +119,42 @@
                 android:id="@+id/rotate_left"
                 android:layout_width="@dimen/image_actions_icon_size"
                 android:layout_height="@dimen/image_actions_icon_size"
-                android:layout_margin="@dimen/image_actions_icon_margin"
-                android:background="@color/image_actions_background"
+                android:layout_marginStart="@dimen/image_actions_icon_margin"
                 android:contentDescription="@string/rotate_left_hint"
                 android:src="@drawable/ic_rotate_left"
-                app:layout_constraintLeft_toLeftOf="@id/choose_image"
-                app:layout_constraintTop_toTopOf="@id/choose_image" />
+                app:layout_constraintBottom_toBottomOf="@id/choose_image"
+                app:layout_constraintLeft_toRightOf="@id/choose_image" />
 
             <ImageView
                 android:id="@+id/rotate_right"
                 android:layout_width="@dimen/image_actions_icon_size"
                 android:layout_height="@dimen/image_actions_icon_size"
-                android:layout_margin="@dimen/image_actions_icon_margin"
-                android:background="@color/image_actions_background"
+                android:layout_marginStart="@dimen/image_actions_icon_margin"
+                android:layout_marginBottom="@dimen/image_actions_icon_margin"
                 android:contentDescription="@string/rotate_left_hint"
                 android:src="@drawable/ic_rotate_right"
-                app:layout_constraintLeft_toRightOf="@id/rotate_left"
-                app:layout_constraintTop_toTopOf="@id/choose_image" />
+                app:layout_constraintBottom_toTopOf="@id/rotate_left"
+                app:layout_constraintLeft_toRightOf="@id/choose_image" />
 
             <ImageView
                 android:id="@+id/delete_image"
                 android:layout_width="@dimen/image_actions_icon_size"
                 android:layout_height="@dimen/image_actions_icon_size"
-                android:layout_margin="@dimen/image_actions_icon_margin"
-                android:background="@color/image_actions_background"
+                android:layout_marginStart="@dimen/image_actions_icon_margin"
+                android:layout_marginTop="@dimen/image_actions_icon_margin"
                 android:contentDescription="@string/delete_image_hint"
                 android:src="@drawable/ic_delete"
-                app:layout_constraintRight_toLeftOf="@id/change_image"
-                app:layout_constraintTop_toTopOf="@id/choose_image" />
+                app:layout_constraintLeft_toRightOf="@id/choose_image"
+                app:layout_constraintTop_toBottomOf="@id/change_image" />
 
             <ImageView
                 android:id="@+id/change_image"
                 android:layout_width="@dimen/image_actions_icon_size"
                 android:layout_height="@dimen/image_actions_icon_size"
-                android:layout_margin="@dimen/image_actions_icon_margin"
-                android:background="@color/image_actions_background"
+                android:layout_marginStart="@dimen/image_actions_icon_margin"
                 android:contentDescription="@string/change_image_hint"
-                android:src="@drawable/ic_edit"
-                app:layout_constraintRight_toRightOf="@id/choose_image"
+                android:src="@drawable/ic_add_photo_alternate"
+                app:layout_constraintLeft_toRightOf="@id/choose_image"
                 app:layout_constraintTop_toTopOf="@id/choose_image" />
 
             <com.google.android.material.textfield.TextInputLayout

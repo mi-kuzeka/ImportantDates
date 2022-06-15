@@ -347,7 +347,7 @@ public class EventActivity extends AppCompatActivity {
 
     private void initDeleteOnClickListener() {
         deleteEventImageView.setOnClickListener(view ->
-                showDeleteConfirmationDialog());
+                showDeleteEventConfirmationDialog());
     }
 
     private void initSaveOnClickListener(Context context) {
@@ -371,8 +371,7 @@ public class EventActivity extends AppCompatActivity {
         });
 
         deleteImageView.setOnClickListener(view -> {
-            bitmapImageView.setImageBitmap(null);
-            setVisibilityForImageActions();
+            showDeleteImageConfirmationDialog();
         });
 
         int rotationRightAngle = 90;
@@ -540,14 +539,37 @@ public class EventActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void showDeleteConfirmationDialog() {
+    private void showDeleteEventConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setMessage(R.string.delete_event_dialog_msg);
         builder.setPositiveButton(R.string.delete, (dialog, id) -> {
             // User clicked the "Delete" button, so delete the event.
             deleteEvent();
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
+            // User clicked the "Cancel" button, so dismiss the dialog
+            // and continue editing the event.
+            if (dialog != null) {
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void showDeleteImageConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_image_dialog_msg);
+        builder.setPositiveButton(R.string.delete, (dialog, id) -> {
+            // User clicked the "Delete" button, so delete the image.
+            bitmapImageView.setImageBitmap(null);
+            setVisibilityForImageActions();
         });
         builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
             // User clicked the "Cancel" button, so dismiss the dialog
