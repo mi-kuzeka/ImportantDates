@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,11 +166,16 @@ public class EventsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             Activity mainActivity = fragment.getActivity();
 
             eventViewHolder.itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(mainActivity, EventActivity.class);
-                Bundle b = new Bundle();
-                b.putParcelable(MainActivity.EVENT_KEY, eventItem);
-                intent.putExtras(b);
-                mStartForResult.launch(intent);
+                try {
+                    Intent intent = new Intent(mainActivity, EventActivity.class);
+                    Bundle b = new Bundle();
+                    b.putParcelable(MainActivity.EVENT_KEY, eventItem);
+                    intent.putExtras(b);
+                    intent.putExtra(MainActivity.EVENT_IMAGE_KEY, eventItem.getBitmapImage());
+                    mStartForResult.launch(intent);
+                } catch (Exception e) {
+                    Log.e(EventsRecyclerViewAdapter.class.getSimpleName(), "Can't start intent");
+                }
             });
 
             eventViewHolder.getDayTextView().setText(String.valueOf(eventItem.getDay()));

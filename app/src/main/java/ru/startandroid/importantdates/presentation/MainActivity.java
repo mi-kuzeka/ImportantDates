@@ -89,13 +89,17 @@ public class MainActivity extends AppCompatActivity {
                         if (event != null) eventMonth = event.getMonth();
                     }
 
-                    getFragmentByMonth(eventMonth).refreshEvents();
+                    EventListFragment currentFragment = getFragmentByMonth(eventMonth);
+                    if (currentFragment != null)
+                        currentFragment.refreshEvents();
                 }
             });
 
     private EventListFragment getFragmentByMonth(int month) {
-        return (EventListFragment)
-                getSupportFragmentManager().findFragmentByTag("f" + (month - 1));
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("f" + (month - 1));
+        if (fragment == null) return null;
+        return (EventListFragment) fragment;
+
     }
 
     private void sortEvents() {

@@ -51,8 +51,6 @@ public class EventActivity extends AppCompatActivity {
     private boolean isViewMode;
     // Current {@link Event} object for existing event
     private Event currentEvent;
-    // Category name of current event
-    private String categoryName;
 
     private TextView eventEditorTitle;
     private TextView chooseImageText;
@@ -156,7 +154,6 @@ public class EventActivity extends AppCompatActivity {
 
     private void fillViewsForEditMode(Context context) {
         nameEditText.setText(currentEvent.getName());
-        nameEditText.setEnabled(true);
 
         dateViewText.setText(EventDateHelper
                 .getEventDateForViewMode(context, currentEvent.getDate()));
@@ -351,14 +348,11 @@ public class EventActivity extends AppCompatActivity {
     }
 
     private void initSaveOnClickListener(Context context) {
-        saveEventImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (userInputIsValid(context))
-                    categoryName = getCategoryName();
-                eventViewModel.getCategoryByName(categoryName);
-            }
-        });
+        saveEventImageView.setOnClickListener(view -> {
+                    if (userInputIsValid(context))
+                        eventViewModel.getCategoryByName(getCategoryName());
+                }
+        );
     }
 
     private void initImageActions() {
@@ -389,6 +383,8 @@ public class EventActivity extends AppCompatActivity {
 
     private void saveEvent(Category category) {
         if (category == null) {
+            // Category name of current event
+            String categoryName = getCategoryName();
             eventViewModel.addNewCategory(categoryName);
             eventViewModel.getCategoryByName(categoryName);
             return;
