@@ -115,14 +115,14 @@ public class MainActivity extends AppCompatActivity {
         switch (orderBy) {
             case UserPreferences.ORDER_BY_DAY_DESC:
             case UserPreferences.ORDER_BY_NAME_DESC:
-                sortButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_up,
-                        0, 0, 0);
+                sortButton.setCompoundDrawablesWithIntrinsicBounds(0,
+                        0, R.drawable.ic_up, 0);
                 break;
             case UserPreferences.ORDER_BY_DAY_ASC:
             case UserPreferences.ORDER_BY_NAME_ASC:
             default:
-                sortButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_down,
-                        0, 0, 0);
+                sortButton.setCompoundDrawablesWithIntrinsicBounds(0,
+                        0, R.drawable.ic_down, 0);
         }
     }
 }
