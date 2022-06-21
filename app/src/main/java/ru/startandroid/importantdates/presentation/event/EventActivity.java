@@ -1,5 +1,6 @@
 package ru.startandroid.importantdates.presentation.event;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,15 @@ import ru.startandroid.importantdates.presentation.helpers.ImageHelper;
 
 public class EventActivity extends AppCompatActivity {
     private final String LOG_TAG = EventActivity.class.getSimpleName();
+
+    /**
+     * Keys for saving instance state
+     */
+    private static final String NAME_KEY = "name";
+    private static final String DATE_KEY = "date";
+    private static final String CATEGORY_KEY = "category";
+    private static final String NOTES_KEY = "notes";
+    private static final String IS_VIEW_MODE_KEY = "is_view_mode";
 
     private EventViewModel eventViewModel;
 
@@ -108,11 +118,31 @@ public class EventActivity extends AppCompatActivity {
         initSaveOnClickListener(this);
         initImageActions();
 
+        boolean isNewActivity = savedInstanceState == null ||
+                savedInstanceState.getString(NAME_KEY) == null;
+        if (!isNewActivity) {
+            String name = savedInstanceState.getString(NAME_KEY);
+            String date = savedInstanceState.getString(DATE_KEY);
+            String category = savedInstanceState.getString(CATEGORY_KEY);
+            String notes = savedInstanceState.getString(NOTES_KEY);
+            Bitmap image = savedInstanceState.getParcelable(MainActivity.EVENT_IMAGE_KEY);
+            isViewMode = savedInstanceState.getBoolean(IS_VIEW_MODE_KEY);
+            fillViewsForEditMode(name, date, category, notes, image);
+        }
+
         showViewsForCurrentMode();
+
         if (isNewEvent) {
             nameEditText.requestFocus();
         } else {
-            fillViewsForEditMode(this);
+            if (isNewActivity) {
+                fillViewsForEditMode(currentEvent.getName(),
+                        EventDateHelper.getEventDateText(this, currentEvent.getDate()),
+                        currentEvent.getCategory().getName(),
+                        currentEvent.getNotes(),
+                        currentEvent.getBitmapImage());
+            }
+            fillViewsForViewMode(this);
             initEditOnClickListener();
             initDeleteOnClickListener();
         }
@@ -152,22 +182,25 @@ public class EventActivity extends AppCompatActivity {
         rotateRightImageView = findViewById(R.id.rotate_right);
     }
 
-    private void fillViewsForEditMode(Context context) {
-        nameEditText.setText(currentEvent.getName());
-
+    private void fillViewsForViewMode(Context context) {
         dateViewText.setText(EventDateHelper
                 .getEventDateForViewMode(context, currentEvent.getDate()));
         if (currentEvent.hasYear())
             ageTextView.setText(EventAgeHelper.getAgeText(context, currentEvent.getYear()));
-        dateEditText.setText(EventDateHelper
-                .getEventDateText(context, currentEvent.getDate()));
-
         categoryViewText.setText(currentEvent.getCategory().getName());
-        categoryEditText.setText(currentEvent.getCategory().getName());
+    }
 
-        notesEditText.setText(currentEvent.getNotes());
-
-        if (currentEvent.hasImage()) bitmapImageView.setImageBitmap(currentEvent.getBitmapImage());
+    private void fillViewsForEditMode(String name,
+                                      String date,
+                                      String categoryName,
+                                      String notes,
+                                      Bitmap image) {
+        nameEditText.setText(name);
+        dateEditText.setText(date);
+        categoryEditText.setText(categoryName);
+        notesEditText.setText(notes);
+        if (image != null)
+            bitmapImageView.setImageBitmap(image);
     }
 
     private void showViewsForCurrentMode() {
@@ -584,5 +617,18 @@ public class EventActivity extends AppCompatActivity {
         eventViewModel.deleteEvent(currentEvent);
         setResult(RESULT_OK);
         finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        if (!isViewMode) {
+            outState.putString(NAME_KEY, getEventName());
+            outState.putString(DATE_KEY, getEventDateText());
+            outState.putString(CATEGORY_KEY, getCategoryName());
+            outState.putString(NOTES_KEY, getNotes());
+            outState.putParcelable(MainActivity.EVENT_IMAGE_KEY, getImage());
+            outState.putBoolean(IS_VIEW_MODE_KEY, isViewMode);
+            super.onSaveInstanceState(outState);
+        }
     }
 }

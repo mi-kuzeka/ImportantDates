@@ -2,6 +2,7 @@ package ru.startandroid.importantdates.presentation;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -31,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public static final String EVENT_KEY = "event";
     public static final String EVENT_IMAGE_KEY = "event_image";
+
+    /**
+     * Key for saving instance state
+     */
+    public static final String SELECTED_MONTH_KEY = "selected_month";
+
     private ViewPager2 viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Get layout for tabs.
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout = findViewById(R.id.tab_layout);
 
         // Find the view pager that will allow the user to swipe between fragments.
         viewPager = findViewById(R.id.event_list_container);
@@ -56,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
         }).attach();
 
         // Select tab with current month
-        tabLayout.getTabAt(MonthsHelper.getCurrentMonth()).select();
+        if (savedInstanceState == null) {
+            selectMonth(MonthsHelper.getCurrentMonth());
+        } else {
+            int tabIndex = savedInstanceState.getInt(SELECTED_MONTH_KEY);
+            selectMonth(tabIndex);
+        }
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab_add_event);
@@ -99,7 +112,16 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("f" + (month - 1));
         if (fragment == null) return null;
         return (EventListFragment) fragment;
+    }
 
+    private int getSelectedMonthPage() {
+        return tabLayout.getSelectedTabPosition();
+    }
+
+    private void selectMonth(int tabIndex) {
+        TabLayout.Tab tabToSelect = tabLayout.getTabAt(tabIndex);
+        if (tabToSelect != null)
+            tabToSelect.select();
     }
 
     private void sortEvents() {
@@ -124,5 +146,11 @@ public class MainActivity extends AppCompatActivity {
                 sortButton.setCompoundDrawablesWithIntrinsicBounds(0,
                         0, R.drawable.ic_down, 0);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(SELECTED_MONTH_KEY, getSelectedMonthPage());
+        super.onSaveInstanceState(outState);
     }
 }
