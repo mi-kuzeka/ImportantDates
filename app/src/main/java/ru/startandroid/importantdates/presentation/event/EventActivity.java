@@ -183,10 +183,11 @@ public class EventActivity extends AppCompatActivity {
     }
 
     private void fillViewsForViewMode(Context context) {
+        EventDate eventDate = currentEvent.getDate();
         dateViewText.setText(EventDateHelper
-                .getEventDateForViewMode(context, currentEvent.getDate()));
+                .getEventDateForViewMode(context, eventDate));
         if (currentEvent.hasYear())
-            ageTextView.setText(EventAgeHelper.getAgeText(context, currentEvent.getYear()));
+            ageTextView.setText(EventAgeHelper.getAgeText(context, eventDate));
         categoryViewText.setText(currentEvent.getCategory().getName());
     }
 

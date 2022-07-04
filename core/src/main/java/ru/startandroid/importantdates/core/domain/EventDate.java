@@ -75,15 +75,20 @@ public class EventDate implements Parcelable {
     public String getFormattedDate(String datePattern) {
         SimpleDateFormat dateFormat =
                 new SimpleDateFormat(datePattern, Locale.getDefault());
-        return dateFormat.format(getEventDate());
+        return dateFormat.format(getEventDate(emptyYear));
     }
 
     /**
      * Get date of the event
      */
-    private Date getEventDate() {
+    public Date getEventDate(int year) {
         final int emptyValue = 0;
-        int eventYear = this.hasYear() ? this.getYear() : emptyValue;
+        int eventYear;
+        if (year == this.emptyYear) {
+            eventYear = this.hasYear() ? this.getYear() : emptyValue;
+        } else {
+            eventYear = year;
+        }
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, eventYear);

@@ -7,36 +7,19 @@ import java.util.Date;
 import java.util.Locale;
 
 import ru.startandroid.importantdates.R;
+import ru.startandroid.importantdates.core.domain.EventDate;
 
 public class EventAgeHelper {
     //If it is impossible to calculate age of the event, set the value -1
     public static final int EMPTY_AGE = -1;
 
-    public static String getAgeText(Context context, int eventYear) {
-        String formatPattern = context.getResources().getString(R.string.event_age_label);
-        return String.format(formatPattern, getAge(eventYear));
-    }
-
-    /**
-     * Calculate age for event
-     *
-     * @return period between two dates
-     */
-    public static int getAge(int eventYear) {
-        // Date of today
-        Date today = new Date();
-        int currentYear = getCurrentYear(today);
-        return getAge(eventYear, currentYear);
-    }
-
-    /**
-     * Calculate age for event with current date value
-     *
-     * @return period between two dates
-     */
-    public static int getAge(int eventYear, Date today) {
-        int currentYear = getCurrentYear(today);
-        return getAge(eventYear, currentYear);
+    public static String getAgeText(Context context, EventDate eventDate) {
+        int currentYear = getDateYear(new Date());
+        boolean isPastDate =
+                eventDate.getEventDate(currentYear).getTime() < System.currentTimeMillis();
+        String formatPattern = context.getResources().getString(
+                isPastDate ? R.string.event_age_past_label : R.string.event_age_label);
+        return String.format(formatPattern, getAge(eventDate.getYear(), currentYear));
     }
 
     /**
@@ -51,16 +34,16 @@ public class EventAgeHelper {
     }
 
     /**
-     * Get current year as number
+     * Get date year as number
      */
-    private static int getCurrentYear(Date today) {
+    private static int getDateYear(Date date) {
         // DateFormat for year
         SimpleDateFormat yearFormat =
                 new SimpleDateFormat("yyyy", Locale.getDefault());
         try {
             // Try to parse year from date string
-            String currentYear = yearFormat.format(today);
-            return Integer.parseInt(currentYear);
+            String dateYear = yearFormat.format(date);
+            return Integer.parseInt(dateYear);
         } catch (Exception exception) {
             return EventAgeHelper.EMPTY_AGE;
         }

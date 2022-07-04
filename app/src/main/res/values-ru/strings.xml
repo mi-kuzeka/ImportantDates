@@ -78,6 +78,8 @@
 
     <!-- Pattern for age label, example: turns 5 y.o. [CHAR_LIMIT=20] -->
     <string name="event_age_label">исполняется %01d лет</string>
+    <!-- Pattern for age label if the date has already passed, example: turned 5 y.o. [CHAR_LIMIT=20] -->
+    <string name="event_age_past_label">исполнилось %01d лет</string>
 
     <!-- Date format, example date: 29 Apr 1990 -->
     <string name="full_date_format_view_mode">dd MMM yyyy</string>
